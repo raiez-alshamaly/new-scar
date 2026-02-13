@@ -1,0 +1,214 @@
+/* ------------------------------------------------*/
+/* New Magic Loader Styles */
+/* ------------------------------------------------*/
+
+.loader-new {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.loader-container {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  /* Increased from 28rem */
+  padding: 0 1.5rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.loader-logo-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.loader-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  background-color: rgba(118, 0, 255, 0.25);
+  border-radius: 9999px;
+  transform: scale(1.5);
+  filter: blur(60px);
+  /* Increased blur */
+}
+
+.loader-svg {
+  width: 12rem;
+  /* Increased from 7rem */
+  margin: 0 auto;
+  fill: none;
+  stroke: #7600FF;
+  stroke-width: 3;
+}
+
+@media (min-width: 640px) {
+  .loader-svg {
+    width: 16rem;
+    /* Increased from 9rem */
+  }
+}
+
+@media (min-width: 768px) {
+  .loader-svg {
+    width: 22rem;
+    /* Increased from 11rem */
+  }
+}
+
+.loader-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  fill: #7600FF;
+  fill-opacity: 0;
+  transition: none;
+}
+
+.loader-title {
+  margin-top: 2.5rem;
+  /* Increased margin */
+  font-size: 2.5rem;
+  /* Increased from 1.5rem */
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .loader-title {
+    font-size: 3.5rem;
+    /* Increased from 1.875rem */
+  }
+}
+
+@media (min-width: 768px) {
+  .loader-title {
+    font-size: 4.5rem;
+    /* Increased from 2.25rem */
+  }
+}
+
+.loader-subtitle {
+  margin-top: 0.75rem;
+  font-size: 1.25rem;
+  /* Increased from 0.875rem */
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 640px) {
+  .loader-subtitle {
+    font-size: 1.5rem;
+    /* Increased from 1rem */
+  }
+}
+
+@media (min-width: 768px) {
+  .loader-subtitle {
+    font-size: 1.75rem;
+    /* Increased from 1.125rem */
+  }
+}
+
+.loader-status {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  /* Increased from 0.75rem */
+  color: rgba(118, 0, 255, 0.9);
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+@media (min-width: 640px) {
+  .loader-status {
+    font-size: 1.25rem;
+    /* Increased from 0.875rem */
+  }
+}
+
+.loader-counter-wrapper {
+  margin-top: 2rem;
+  /* Increased margin */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.loader-counter {
+  font-size: 4rem;
+  /* Increased from 1.875rem */
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .loader-counter {
+    font-size: 5rem;
+    /* Increased from 2.25rem */
+  }
+}
+
+@media (min-width: 768px) {
+  .loader-counter {
+    font-size: 7rem;
+    /* Increased from 3rem */
+  }
+}
+
+.loader-percent {
+  font-size: 2rem;
+  /* Increased from 1.25rem */
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  padding-bottom: 0.75rem;
+  /* Align baseline better with larger text */
+}
+
+@media (min-width: 640px) {
+  .loader-percent {
+    font-size: 2.5rem;
+    padding-bottom: 1rem;
+    /* Increased from 1.5rem */
+  }
+}
+
+.loader-skip-btn {
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+
+.loader-skip-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.loader-skip-btn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(118, 0, 255, 0.9);
+}

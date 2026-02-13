@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scarlets - Free Online Tools & Services</title>
+
+    <meta name="description" content="Scarlet Royal Tools - Free online services powered by n8n.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Custom Loader CSS -->
+    <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/loaders/loader.css">
+
+    <style>
+        :root {
+            --color-primary: #7600FF;
+            --color-dark: #141414;
+            --color-surface: #1e1e1e;
+        }
+
+        body {
+            background-color: var(--color-dark);
+            color: #ffffff;
+            font-family: system-ui,
+                -apple-system,
+                sans-serif;
+            overflow-x: hidden;
+
+            /* Disable Text Selection & Dragging */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        img,
+        video {
+            pointer-events: none;
+        }
+
+        /* Tool Card Styles */
+        .tool-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 30px rgba(118, 0, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .tool-card.coming-soon {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        .tool-card.coming-soon:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #7600FF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== LOADER ==================== -->
+    <div id="loader" class="loader-new">
+        <div class="loader-container">
+            <div class="loader-logo-wrapper">
+                <div class="loader-glow"></div>
+                <!-- Full Loader SVG from Index -->
+                <svg id="loader-svg" viewBox="0 0 203 169" class="loader-svg">
+                    <path class="loader-path" d="M6.3 41L38.67 8.63V42.56L0 81.24V56.22C0 50.51 2.27 45.04 6.3 41Z">
+                    </path>
+                    <path class="loader-path"
+                        d="M163.83 119.91L202.5 81.24V105.79C202.5 111.79 200.12 117.55 195.88 121.79L163.83 153.84V137.07L132.1 168.8H70.4099L38.6799 137.07V82.16L101.25 144.74L163.83 82.16V119.91Z">
+                    </path>
+                    <path class="loader-path"
+                        d="M0 108.43V81.24L38.67 119.91V153.84L4.76 119.93C1.71 116.88 0 112.74 0 108.43Z">
+                    </path>
+                    <path class="loader-path"
+                        d="M202.5 56.22V81.24L163.83 42.56V79.98L101.25 17.4L38.6799 79.98V25.07L63.7499 0H138.76L163.83 25.07V8.63L196.2 41C200.24 45.04 202.5 50.51 202.5 56.22Z">
+                    </path>
+                </svg>
+            </div>
+            <p id="loader-status" class="loader-status mt-4 text-sm tracking-widest uppercase">Initializing Tools</p>
+        </div>
+    </div>
+
+    <!-- ==================== HEADER ==================== -->
+    <header
+        class="fixed top-0 left-0 w-full z-[100] px-6 py-6 mix-blend-difference text-white transition-opacity duration-700"
+        id="main-header">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html"
+                class="font-bold text-xl tracking-tighter hover:text-[#7600FF] transition-colors">SCARLET ROYAL</a>
+
+            <nav class="hidden md:flex gap-8 text-sm font-medium tracking-widest uppercase">
+                <a href="index.html#about"
+                    class="nav-link relative hover:text-[#7600FF] transition-colors group">About</a>
+                <a href="index.html#services"
+                    class="nav-link relative hover:text-[#7600FF] transition-colors group">Services</a>
+                <a href="index.html#portfolio"
+                    class="nav-link relative hover:text-[#7600FF] transition-colors group">Work</a>
+                <a href="scarlets.html" class="nav-link text-[#7600FF] font-bold">Scarlets</a>
+                <a href="index.html#team"
+                    class="nav-link relative hover:text-[#7600FF] transition-colors group">Team</a>
+                <a href="index.html#contact"
+                    class="nav-link relative hover:text-[#7600FF] transition-colors group">Contact</a>
+            </nav>
+
+            <a href="index.html#contact"
+                class="border border-white/20 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                Let's Talk
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative pt-48 pb-32 px-6 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
+        <!-- Background Elements -->
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,_#4a00e0_0%,_#141414_50%)] opacity-40 -z-10">
+        </div>
+        <div
+            class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 -z-10 mix-blend-overlay">
+        </div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10" id="hero-content">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 hover:bg-white/10 transition-colors cursor-default">
+                <span class="w-2 h-2 rounded-full bg-[#7600FF] animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-widest text-white/80">Beta Access Live</span>
+            </div>
+
+            <h1 class="text-6xl md:text-9xl font-bold tracking-tighter mb-8 section-title leading-tight">
+                Scarlets <span class="text-gradient">Tools</span>
+            </h1>
+
+            <p
+                class="text-lg md:text-2xl text-white/60 max-w-3xl mx-auto leading-relaxed mb-12 section-title font-light">
+                Empower your workflow with our suite of <span class="text-white font-medium">n8n-powered</span>
+                intelligent tools. <br class="hidden md:block">
+                Designed for creators, marketers, and visionaries.
+            </p>
+
+            <div class="section-title">
+                <a href="#active-tools"
+                    class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-[#7600FF] hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(118,0,255,0.4)]">
+                    Explore Tools
+                    <iconify-icon icon="solar:arrow-down-linear" width="24"></iconify-icon>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ACTIVE TOOLS GRID ==================== -->
+    <section id="active-tools" class="py-24 px-6 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-end justify-between mb-16 px-2">
+                <div>
+                    <span
+                        class="block text-[#7600FF] font-bold tracking-widest uppercase text-xs mb-2">Capabilities</span>
+                    <h2 class="text-4xl md:text-5xl font-bold section-title">Available Tools</h2>
+                </div>
+                <div class="hidden md:block text-white/40 text-sm max-w-xs text-right">
+                    Free for a limited time during beta.
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Tool 1 -->
+                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+                    onclick="alert('Tool 1 Coming Soon!')">
+                    <div
+                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <iconify-icon icon="solar:arrow-right-up-linear"
+                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
+                            width="24"></iconify-icon>
+                    </div>
+
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="32"
+                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-3 text-white">AI Generator</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Generate specialized content, copy, and ideas
+                        using our fine-tuned models.</p>
+
+                    <div
+                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
+                        <span>Launch App</span>
+                    </div>
+                </div>
+
+                <!-- Tool 2 -->
+                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+                    onclick="alert('Tool 2 Coming Soon!')">
+                    <div
+                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <iconify-icon icon="solar:arrow-right-up-linear"
+                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
+                            width="24"></iconify-icon>
+                    </div>
+
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <iconify-icon icon="solar:file-check-bold-duotone" width="32"
+                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-3 text-white">SEO Analyzer</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Deep scan your website for SEO improvements,
+                        keyword gaps, and optimizations.</p>
+
+                    <div
+                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
+                        <span>Launch App</span>
+                    </div>
+                </div>
+
+                <!-- Tool 3 -->
+                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+                    onclick="alert('Tool 3 Coming Soon!')">
+                    <div
+                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <iconify-icon icon="solar:arrow-right-up-linear"
+                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
+                            width="24"></iconify-icon>
+                    </div>
+
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <iconify-icon icon="solar:link-circle-bold-duotone" width="32"
+                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-3 text-white">Link Shortener</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Create branded short links instantly with
+                        built-in tracking analytics.</p>
+
+                    <div
+                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
+                        <span>Launch App</span>
+                    </div>
+                </div>
+
+                <!-- Tool 4 -->
+                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+                    onclick="alert('Tool 4 Coming Soon!')">
+                    <div
+                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <iconify-icon icon="solar:arrow-right-up-linear"
+                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
+                            width="24"></iconify-icon>
+                    </div>
+
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <iconify-icon icon="solar:gallery-wide-bold-duotone" width="32"
+                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-3 text-white">Image Optimize</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Compress and optimize images for web without
+                        losing visual quality.</p>
+
+                    <div
+                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
+                        <span>Launch App</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMING SOON SECTION ==================== -->
+    <section class="py-24 px-6 bg-black border-t border-white/5 relative overflow-hidden">
+        <!-- Decoration -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#7600FF] opacity-5 filter blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex items-end justify-between mb-16 px-2">
+                <div>
+                    <span class="block text-white/30 font-bold tracking-widest uppercase text-xs mb-2">Roadmap</span>
+                    <h2 class="text-3xl md:text-5xl font-bold section-title text-white/50">Coming Soon</h2>
+                </div>
+            </div>
+
+            <div
+                class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 opacity-60 hover:opacity-100 transition-opacity duration-500">
+                <!-- CS 1 -->
+                <div
+                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
+                        <iconify-icon icon="solar:lock-password-bold-duotone" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-white/50">Video Transcriber</h3>
+                    <p class="text-xs text-white/30">AI-powered video to text conversion.</p>
+                </div>
+
+                <!-- CS 2 -->
+                <div
+                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
+                        <iconify-icon icon="solar:palette-bold-duotone" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-white/50">Palette Gen</h3>
+                    <p class="text-xs text-white/30">Extract colors from images instantly.</p>
+                </div>
+
+                <!-- CS 3 -->
+                <div
+                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
+                        <iconify-icon icon="solar:user-id-bold-duotone" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-white/50">Bio Generator</h3>
+                    <p class="text-xs text-white/30">Craft the perfect social media bio.</p>
+                </div>
+
+                <!-- CS 4 -->
+                <div
+                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
+                        <iconify-icon icon="solar:letter-bold-duotone" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-white/50">Email Drafter</h3>
+                    <p class="text-xs text-white/30">Write professional emails in seconds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="border-t border-white/10 bg-black py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-white/50 text-sm">
+                &copy; 2026 Scarlet Royal. All rights reserved.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-white/50 hover:text-white transition-colors"><iconify-icon
+                        icon="ph:instagram-logo" width="20"></iconify-icon></a>
+                <a href="#" class="text-white/50 hover:text-white transition-colors"><iconify-icon
+                        icon="ph:linkedin-logo" width="20"></iconify-icon></a>
+                <a href="#" class="text-white/50 hover:text-white transition-colors"><iconify-icon
+                        icon="ph:twitter-logo" width="20"></iconify-icon></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scarlets.js"></script>
+</body>
+
+</html>

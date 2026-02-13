@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Scarlet Royal - Branding & Some Magic</title>
+
+  <meta name="description" content="Welcome to Scarlet Royal, your partner for innovative marketing solutions.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <!-- SplitType for Text Animations -->
+  <script src="https://unpkg.com/split-type"></script>
+
+  <!-- Custom Loader CSS -->
+  <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/loaders/loader.css">
+
+  <style>
+    :root {
+      --color-primary: #7600FF;
+      --color-dark: #141414;
+      --color-surface: #1e1e1e;
+    }
+
+    body {
+      background-color: var(--color-dark);
+      color: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+
+      /* Disable Text Selection & Dragging */
+      -webkit-user-select: none;
+      /* Safari */
+      -moz-user-select: none;
+      /* Firefox */
+      -ms-user-select: none;
+      /* IE10+/Edge */
+      user-select: none;
+      /* Standard */
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+    }
+
+    img,
+    video {
+      pointer-events: none;
+      /* Prevent image dragging/saving */
+    }
+
+    /* Sticky Stacking Logic */
+    .stack-section {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      /* Allow auto height for content */
+      /* min-height: 100vh; -- REMOVED to allow ScrollTo to work better, handled by JS 'top' logic */
+      min-height: 100vh;
+
+      overflow: visible;
+      /* changed from hidden to visible */
+      transform-origin: center top;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+      background-color: var(--color-dark);
+      z-index: 1;
+      /* Base z-index */
+
+      /* Optimize Rendering */
+      will-change: transform;
+
+      /* Flex center by default for card feel */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Ensure following sections are higher z-index automatically by DOM order, 
+       but we explicitly handle it if needed. Native behavior works fine usually. */
+
+    /* Hero specific overrides */
+    #hero {
+      box-shadow: none;
+    }
+
+    /* Custom Fonts placeholders */
+    .font-outline {
+      font-weight: 800;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+      color: transparent;
+    }
+
+    .perspective-text {
+      perspective: 400px;
+    }
+
+    /* Ensure character wrappers created by split-type display correctly */
+    .perspective-text .char {
+      transform-style: preserve-3d;
+      display: inline-block;
+    }
+
+    /* Utilities */
+    .text-glow {
+      text-shadow: 0 0 20px rgba(118, 0, 255, 0.4);
+    }
+
+    /* Navigation Link Animations */
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease;
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== LOADER ==================== -->
+  <!-- Note: We keep the exact HTML structure requested previously -->
+  <div id="loader" class="loader-new">
+    <div class="loader-container">
+      <div class="loader-logo-wrapper">
+        <div class="loader-glow"></div>
+        <svg id="loader-svg" viewBox="0 0 203 169" class="loader-svg">
+          <path class="loader-path" d="M6.3 41L38.67 8.63V42.56L0 81.24V56.22C0 50.51 2.27 45.04 6.3 41Z"></path>
+          <path class="loader-path"
+            d="M163.83 119.91L202.5 81.24V105.79C202.5 111.79 200.12 117.55 195.88 121.79L163.83 153.84V137.07L132.1 168.8H70.4099L38.6799 137.07V82.16L101.25 144.74L163.83 82.16V119.91Z">
+          </path>
+          <path class="loader-path" d="M0 108.43V81.24L38.67 119.91V153.84L4.76 119.93C1.71 116.88 0 112.74 0 108.43Z">
+          </path>
+          <path class="loader-path"
+            d="M202.5 56.22V81.24L163.83 42.56V79.98L101.25 17.4L38.6799 79.98V25.07L63.7499 0H138.76L163.83 25.07V8.63L196.2 41C200.24 45.04 202.5 50.51 202.5 56.22Z">
+          </path>
+        </svg>
+      </div>
+
+
+      <p id="loader-status" class="loader-status">Initializing experience</p>
+
+
+    </div>
+  </div>
+
+  <!-- ==================== HEADER ==================== -->
+  <header
+    class="fixed top-0 left-0 w-full z-[100] px-6 py-6 mix-blend-difference text-white transition-opacity duration-700 opacity-0"
+    id="main-header">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="#" class="font-bold text-xl tracking-tighter hover:text-[#7600FF] transition-colors">SCARLET ROYAL</a>
+
+      <nav class="hidden md:flex gap-8 text-sm font-medium tracking-widest uppercase">
+        <a href="#about" class="nav-link hover:text-[#7600FF] transition-colors">About</a>
+        <a href="#services" class="nav-link hover:text-[#7600FF] transition-colors">Services</a>
+        <a href="#portfolio" class="nav-link hover:text-[#7600FF] transition-colors">Work</a>
+        <a href="scarlets.html"
+          class="nav-link hover:text-[#7600FF] transition-colors font-bold text-[#7600FF]">Scarlets</a>
+        <a href="#team" class="nav-link hover:text-[#7600FF] transition-colors">Team</a>
+        <a href="#contact" class="nav-link hover:text-[#7600FF] transition-colors">Contact</a>
+      </nav>
+
+      <a href="#contact"
+        class="border border-white/20 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+        Let's Talk
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION (1) ==================== -->
+  <section id="hero" class="stack-section relative flex items-center justify-center  bg-[#141414] h-[100dvh]">
+    <!-- Video Background Only -->
+    <div class="absolute inset-0 z-0 h-full w-full">
+      <video class="w-full h-full object-cover" autoplay muted loop playsinline poster="">
+        <source src="old_theme/theme_three/assets/video/hero-new.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-black/20"></div>
+    </div>
+
+    <!-- Floating Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white animate-bounce">
+      <iconify-icon icon="solar:arrow-down-linear" width="32"></iconify-icon>
+    </div>
+  </section>
+
+  <!-- ==================== WELCOME SECTION (2) ==================== -->
+  <section id="welcome" class="stack-section bg-[#141414] py-12 md:py-24 flex items-center justify-center text-center">
+    <div class="max-w-5xl mx-auto px-6">
+      <h1
+        class="reveal-text font-outline text-4xl md:text-8xl lg:text-9xl tracking-tighter mb-6 md:mb-8 leading-tight perspective-text">
+        BRANDING <br> & MAGIC
+      </h1>
+      <p class="reveal-text-desc text-lg md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+        We craft digital experiences that spark emotion and drive growth.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ==================== ABOUT SECTION (2) ==================== -->
+  <section id="about" class="stack-section bg-[#141414] py-12 md:py-24 flex items-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-4 uppercase anim-about-label">Who We
+        Are</span>
+
+      <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+        <div>
+          <h2 class="anim-about-title text-4xl md:text-7xl font-bold leading-tight mb-6 md:mb-8 perspective-text">
+            No Branding, <br>
+            <span class="text-[#7600FF]">Just Background.</span>
+          </h2>
+          <!-- Placeholder for the Rotating Text Animation -->
+          <div class="text-xl md:text-2xl font-light text-white/60 mb-6 md:mb-8 h-12 overflow-hidden relative">
+            <div class="absolute w-full anim-text-rotator">
+              <div class="py-1">Branding & Rebranding</div>
+              <div class="py-1">Visual Identity</div>
+              <div class="py-1">Web Development</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6 md:space-y-8 text-base md:text-lg text-white/70 leading-relaxed">
+          <div class="anim-about-desc">
+            <p class="mb-6">
+              Branding begins with a feeling. People connect first with how your business looks, sounds, and behaves.
+              That’s where Scarlet Royal comes in.
+            </p>
+            <p>
+              Driven by a skilled team of designers, we blend creativity, innovation, and AI tools to shape lasting
+              stories.
+            </p>
+          </div>
+
+          <hr class="border-white/10">
+
+          <div class="flex gap-4">
+            <div class="text-center">
+              <span class="block text-2xl md:text-3xl font-bold text-white"><span class="anim-stat-number"
+                  data-target="50">0</span>+</span>
+              <span class="text-xs uppercase tracking-wider text-white/40">Projects</span>
+            </div>
+            <div class="w-px bg-white/10 h-10 self-center"></div>
+            <div class="text-center">
+              <span class="block text-2xl md:text-3xl font-bold text-white"><span class="anim-stat-number"
+                  data-target="12">0</span>+</span>
+              <span class="text-xs uppercase tracking-wider text-white/40">Awards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== SERVICES SECTION (3) ==================== -->
+  <section id="services" class="stack-section bg-[#181818] py-24 flex items-center border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-12 uppercase">Our Expertise</span>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Service 1 -->
+        <div class="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+          <iconify-icon icon="solar:pen-new-square-linear" width="48" class="text-[#7600FF] mb-6"></iconify-icon>
+          <h3 class="text-2xl font-bold mb-4">Branding</h3>
+          <ul class="text-white/60 space-y-2 text-sm">
+            <li>Logo Design</li>
+            <li>Visual Identity</li>
+            <li>Brand Strategy</li>
+            <li>Guidelines</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+          <iconify-icon icon="solar:monitor-smartphone-linear" width="48" class="text-[#7600FF] mb-6"></iconify-icon>
+          <h3 class="text-2xl font-bold mb-4">Web & Digital</h3>
+          <ul class="text-white/60 space-y-2 text-sm">
+            <li>UI/UX Design</li>
+            <li>Web Development</li>
+            <li>E-Commerce</li>
+            <li>SEO Optimization</li>
+          </ul>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+          <iconify-icon icon="ph:megaphone-simple" width="48" class="text-[#7600FF] mb-6"></iconify-icon>
+          <h3 class="text-2xl font-bold mb-4">Marketing</h3>
+          <ul class="text-white/60 space-y-2 text-sm">
+            <li>Social Media</li>
+            <li>Content Creation</li>
+            <li>Campaigns</li>
+            <li>Analytics</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== TEAM SECTION (4) ==================== -->
+  <section id="team" class="stack-section bg-[#141414] py-24 flex items-center border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center">
+      <div class="flex justify-between items-end mb-16">
+        <div>
+          <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-4 uppercase">The Visionaries</span>
+          <h2 class="text-5xl md:text-6xl font-bold">Behind the <br> Magic</h2>
+        </div>
+        <a href="#contact"
+          class="hidden md:inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-[#7600FF] transition-colors">
+          <span>Join Team</span>
+          <iconify-icon icon="solar:arrow-right-linear" width="20"></iconify-icon>
+        </a>
+      </div>
+
+      <!-- Pro Team Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Member 1 -->
+        <div
+          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          onclick="">
+          <img src="old_theme/theme_three/assets/img/team/1.webp" alt="Team Member"
+            class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
+
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
+          </div>
+
+          <div class="absolute bottom-0 left-0 w-full p-6">
+            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Creative Lead</p>
+            <h3 class="text-2xl font-bold text-white">Brand Architect</h3>
+          </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div
+          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          onclick="">
+          <img src="old_theme/theme_three/assets/img/team/4.webp" alt="Team Member"
+            class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
+
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
+          </div>
+
+          <div class="absolute bottom-0 left-0 w-full p-6">
+            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Tech Lead</p>
+            <h3 class="text-2xl font-bold text-white">Digital Wizard</h3>
+          </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div
+          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          onclick="">
+          <img src="old_theme/theme_three/assets/img/team/3.webp" alt="Team Member"
+            class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
+
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
+          </div>
+
+          <div class="absolute bottom-0 left-0 w-full p-6">
+            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Strategist</p>
+            <h3 class="text-2xl font-bold text-white">Growth Hacker</h3>
+          </div>
+        </div>
+
+        <!-- Member 4 -->
+        <div
+          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          onclick="">
+          <img src="old_theme/theme_three/assets/img/team/2.webp" alt="Team Member"
+            class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
+
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
+          </div>
+
+          <div class="absolute bottom-0 left-0 w-full p-6">
+            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Designer</p>
+            <h3 class="text-2xl font-bold text-white">Pixel Artist</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TEAM VIDEOS SECTION ==================== -->
+  <section id="team-videos" class="stack-section bg-[#141414] py-24 flex items-center border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center">
+
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+
+        <!-- Section Header -->
+        <div class="w-full lg:w-3/12 shrink-0">
+          <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-4 uppercase">The Cast</span>
+          <h2 class="text-5xl md:text-6xl font-bold leading-none mb-8">Meet The<br><span
+              class="text-white/50">Creators</span></h2>
+          <div class="hidden lg:block animate-bounce mt-8">
+            <iconify-icon icon="solar:arrow-right-down-linear" width="48" class="text-white/40"></iconify-icon>
+          </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="w-full lg:w-9/12 grid md:grid-cols-2 gap-6">
+
+          <!-- Founder Column (Left - Large) -->
+          <div
+            class="group relative overflow-hidden rounded-2xl aspect-[9/16] md:aspect-[3/4] md:row-span-2 cursor-pointer border border-white/10"
+            onclick="openVideoModal('old_theme/theme_three/assets/videos/Founder.mp4', 'Founder')">
+            <video src="old_theme/theme_three/assets/videos/Founder.mp4" autoplay muted loop playsinline
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></video>
+
+            <!-- Overlay -->
+            <div
+              class="absolute inset-0 bg-black/40 md:bg-black/20 md:group-hover:bg-black/50 transition-colors duration-500 flex flex-col justify-end p-6">
+              <!-- Label always visible on mobile, reveal on desktop hover -->
+              <div
+                class="translate-y-0 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
+                <span
+                  class="inline-block px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest text-white mb-2">Founder</span>
+                <div class="w-12 h-1 bg-[#7600FF] rounded-full"></div>
+              </div>
+            </div>
+            <!-- Play Icon -->
+            <div
+              class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div
+                class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                <iconify-icon icon="solar:play-bold" class="text-white text-3xl ml-1"></iconify-icon>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Column (Right Grid - Smaller) -->
+          <div class="grid grid-cols-2 gap-4 md:gap-6 content-start">
+
+            <!-- Director -->
+            <div class="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer border border-white/10"
+              onclick="openVideoModal('old_theme/theme_three/assets/videos/Director.mp4', 'Director')">
+              <video src="old_theme/theme_three/assets/videos/Director.mp4" autoplay muted loop playsinline
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              <div
+                class="absolute inset-0 bg-black/40 md:bg-black/0 md:group-hover:bg-black/60 transition-colors duration-500 flex items-center justify-center">
+                <span
+                  class="px-2 py-1 bg-black/50 backdrop-blur-sm border border-white/10 rounded text-[10px] md:text-xs font-bold uppercase tracking-widest text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">Director</span>
+              </div>
+            </div>
+
+            <!-- Project Manager -->
+            <div class="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer border border-white/10"
+              onclick="openVideoModal('old_theme/theme_three/assets/videos/Project management.mp4', 'Project Manager')">
+              <video src="old_theme/theme_three/assets/videos/Project management.mp4" autoplay muted loop playsinline
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              <div
+                class="absolute inset-0 bg-black/40 md:bg-black/0 md:group-hover:bg-black/60 transition-colors duration-500 flex items-center justify-center text-center px-2">
+                <span
+                  class="px-2 py-1 bg-black/50 backdrop-blur-sm border border-white/10 rounded text-[10px] md:text-xs font-bold uppercase tracking-widest text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">Project
+                  Manager</span>
+              </div>
+            </div>
+
+            <!-- Developer -->
+            <div class="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer border border-white/10"
+              onclick="openVideoModal('old_theme/theme_three/assets/videos/Developer.mp4', 'Developer')">
+              <video src="old_theme/theme_three/assets/videos/Developer.mp4" autoplay muted loop playsinline
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              <div
+                class="absolute inset-0 bg-black/40 md:bg-black/0 md:group-hover:bg-black/60 transition-colors duration-500 flex items-center justify-center">
+                <span
+                  class="px-2 py-1 bg-black/50 backdrop-blur-sm border border-white/10 rounded text-[10px] md:text-xs font-bold uppercase tracking-widest text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">Developer</span>
+              </div>
+            </div>
+
+
+
+            <!-- AI Expert (Image) -->
+            <div class="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer border border-white/10"
+              onclick="openImageModal('old_theme/theme_three/assets/videos/AI Expert.jpeg', 'AI Expert')">
+              <img src="old_theme/theme_three/assets/videos/AI Expert.jpeg" alt="AI Expert"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div
+                class="absolute inset-0 bg-black/40 md:bg-black/0 md:group-hover:bg-black/60 transition-colors duration-500 flex items-center justify-center">
+                <span
+                  class="px-2 py-1 bg-black/50 backdrop-blur-sm border border-white/10 rounded text-[10px] md:text-xs font-bold uppercase tracking-widest text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">AI
+                  Expert</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PORTFOLIO SECTION (5) ==================== -->
+  <!-- ==================== PORTFOLIO SECTION (5) - CASE STUDY ==================== -->
+  <!-- ==================== PORTFOLIO SCROLL SECTION ==================== -->
+  <section id="portfolio" class="relative z-20 bg-[#0e0e0e]">
+    <!-- Horizontal Scroll Wrapper -->
+    <div class="h-scroll-container w-full h-screen overflow-hidden flex sticky top-0">
+      <div class="h-scroll-wrapper flex flex-nowrap h-full">
+
+        <!-- PROJECT 1: Rabdan Line -->
+        <div
+          class="h-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center px-4 pb-4 pt-32 md:p-12 relative bg-[#0e0e0e] border-r border-white/5">
+          <!-- Facebook Profile Card -->
+          <div data-id="10" onclick="openProjectModal('modal-10')"
+            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[65vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
+
+            <!-- Cover Photo (Video) -->
+            <div class="h-[38%] md:h-[60%] w-full relative overflow-hidden bg-black">
+              <video src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img2.mp4"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                autoplay muted loop playsinline></video>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-90">
+              </div>
+            </div>
+
+            <!-- Profile Info Bar -->
+            <div class="relative h-[62%] md:h-[40%] px-5 md:px-12 pb-6 flex flex-col pt-16 md:pt-28">
+              <!-- Profile Picture (Logo) -->
+              <div
+                class="absolute -top-12 md:-top-16 left-8 md:left-12 w-24 h-24 md:w-40 md:h-40 rounded-full bg-[#141414] border-[6px] border-white/20 overflow-hidden shadow-lg z-10 group-hover:scale-110 transition-transform duration-500">
+                <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/logo.png"
+                  onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/logo.png'"
+                  class="w-full h-full object-cover p-2">
+              </div>
+
+              <!-- Text Content -->
+              <div class="flex justify-between items-start mb-6 align-end">
+                <div>
+                  <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Rabdan Line</h2>
+                  <div class="flex gap-3 text-sm text-white/60">
+                    <span class="font-bold text-[#7600FF]">Fashion</span>
+                    <span>•</span>
+                    <span>Rebranding</span>
+                  </div>
+                </div>
+                <!-- View Project Button (Desktop) -->
+                <button
+                  class="hidden md:flex items-center gap-2 bg-[#7600FF] text-white px-6 py-3 rounded-full font-bold hover:bg-[#6000d0] transition-colors">
+                  <span>View Project</span>
+                  <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                </button>
+              </div>
+
+              <!-- Description -->
+              <div
+                class="mt-auto border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-6 text-sm text-white/50">
+                <p class="max-w-xl line-clamp-3">Crafting Strength, Defining Style. A fusion of tradition and innovation
+                  for a leading fashion brand in the UAE.</p>
+                <div class="flex gap-4 items-center">
+                  <div class="flex -space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-white/10 border border-[#141414]"></div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 border border-[#141414]"></div>
+                    <div
+                      class="w-8 h-8 rounded-full bg-white/30 border border-[#141414] flex items-center justify-center text-[10px] text-white font-bold">
+                      +3</div>
+                  </div>
+                  <span class="hidden md:inline">See Gallery</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 2: Kingdom Design -->
+        <div
+          class="h-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center px-4 pb-4 pt-32 md:p-12 relative bg-[#0e0e0e] border-r border-white/5">
+          <div data-id="17" onclick="openProjectModal('modal-17')"
+            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[65vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
+
+            <div class="h-[38%] md:h-[60%] w-full relative overflow-hidden bg-black">
+              <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img2.png"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-90">
+              </div>
+            </div>
+
+            <div class="relative h-[62%] md:h-[40%] px-5 md:px-12 pb-6 flex flex-col pt-16 md:pt-28">
+              <div
+                class="absolute -top-12 md:-top-16 left-8 md:left-12 w-24 h-24 md:w-40 md:h-40 rounded-full bg-[#141414] border-[6px] border-white/20 overflow-hidden shadow-lg z-10 group-hover:scale-110 transition-transform duration-500">
+                <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/logo.png"
+                  onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img2.png'"
+                  class="w-full h-full object-cover p-2">
+              </div>
+
+              <div class="flex justify-between items-start mb-6 align-end">
+                <div>
+                  <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Kingdom Design</h2>
+                  <div class="flex gap-3 text-sm text-white/60">
+                    <span class="font-bold text-[#7600FF]">Construction</span>
+                    <span>•</span>
+                    <span>Identity</span>
+                  </div>
+                </div>
+                <button
+                  class="hidden md:flex items-center gap-2 bg-[#7600FF] text-white px-6 py-3 rounded-full font-bold hover:bg-[#6000d0] transition-colors">
+                  <span>View Project</span>
+                  <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                </button>
+              </div>
+
+              <div
+                class="mt-auto border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-6 text-sm text-white/50">
+                <p class="max-w-xl line-clamp-3">Built with Purpose. Crafted for Impact. A robust identity for a leading
+                  construction firm.</p>
+                <div class="flex gap-4 items-center">
+                  <div class="flex -space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-white/10 border border-[#141414]"></div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 border border-[#141414]"></div>
+                    <div
+                      class="w-8 h-8 rounded-full bg-white/30 border border-[#141414] flex items-center justify-center text-[10px] text-white font-bold">
+                      +4</div>
+                  </div>
+                  <span class="hidden md:inline">See Gallery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 3: Himaya -->
+        <div
+          class="h-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center px-4 pb-4 pt-32 md:p-12 relative bg-[#0e0e0e] border-r border-white/5">
+          <div data-id="15" onclick="openProjectModal('modal-15')"
+            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[65vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
+
+            <div class="h-[38%] md:h-[60%] w-full relative overflow-hidden bg-black">
+              <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/aimg2.png"
+                onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img2.png'"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-90">
+              </div>
+            </div>
+
+            <div class="relative h-[62%] md:h-[40%] px-5 md:px-12 pb-6 flex flex-col pt-16 md:pt-28">
+              <div
+                class="absolute -top-12 md:-top-16 left-8 md:left-12 w-24 h-24 md:w-40 md:h-40 rounded-full bg-[#141414] border-[6px] border-white/20 overflow-hidden shadow-lg z-10 group-hover:scale-110 transition-transform duration-500">
+                <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/logo.png"
+                  onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/aimg2.png'"
+                  class="w-full h-full object-cover p-2">
+              </div>
+
+              <div class="flex justify-between items-start mb-6 align-end">
+                <div>
+                  <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Himaya</h2>
+                  <div class="flex gap-3 text-sm text-white/60">
+                    <span class="font-bold text-[#7600FF]">Insurance</span>
+                    <span>•</span>
+                    <span>Branding</span>
+                  </div>
+                </div>
+                <button
+                  class="hidden md:flex items-center gap-2 bg-[#7600FF] text-white px-6 py-3 rounded-full font-bold hover:bg-[#6000d0] transition-colors">
+                  <span>View Project</span>
+                  <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                </button>
+              </div>
+
+              <div
+                class="mt-auto border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-6 text-sm text-white/50">
+                <p class="max-w-xl line-clamp-3">Making insurance clear, human, and culturally relevant strategy for the
+                  Oman market.</p>
+                <div class="flex gap-4 items-center">
+                  <div class="flex -space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-white/10 border border-[#141414]"></div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 border border-[#141414]"></div>
+                    <div
+                      class="w-8 h-8 rounded-full bg-white/30 border border-[#141414] flex items-center justify-center text-[10px] text-white font-bold">
+                      +5</div>
+                  </div>
+                  <span class="hidden md:inline">See Gallery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Horizontal Scroll Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const container = document.querySelector(".h-scroll-container");
+      const wrapper = document.querySelector(".h-scroll-wrapper");
+
+      // Horizontal Scroll
+      let scrollTween = gsap.to(wrapper, {
+        x: () => -(wrapper.scrollWidth - document.documentElement.clientWidth) + "px",
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#portfolio",
+          pin: true,
+          scrub: 1,
+          end: () => "+=" + wrapper.scrollWidth,
+          invalidateOnRefresh: true,
+          anticipatePin: 1
+        }
+      });
+    });
+  </script>
+
+
+  <!-- ==================== CONTACT SECTION (6) ==================== -->
+  <section id="contact"
+    class="stack-section bg-gradient-to-b from-[#141414] to-black py-24 flex flex-col items-center justify-between min-h-screen h-auto md:h-screen">
+
+    <!-- Contact Content -->
+    <div class="max-w-4xl mx-auto px-6 text-center flex-grow flex flex-col justify-center">
+      <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-6 uppercase anim-contact-label">Get In
+        Touch</span>
+      <h2 class="anim-contact-heading text-6xl md:text-8xl font-bold mb-12 tracking-tighter perspective-text">
+        Ready to <br> create <br>
+        <span class="text-outline font-outline text-white">Something Real?</span>
+      </h2>
+
+      <div class="flex justify-center">
+        <a href="mailto:info@scarletroyal.ae"
+          class="anim-contact-btn inline-flex items-center gap-4 bg-[#7600FF] text-white px-10 py-5 rounded-full text-lg font-bold hover:scale-105 hover:bg-[#6000d0] transition-all duration-300 shadow-[0_0_40px_rgba(118,0,255,0.4)]">
+          <span>Start Your Project</span>
+          <iconify-icon icon="solar:arrow-right-up-linear" width="24"></iconify-icon>
+        </a>
+      </div>
+    </div>
+
+    <!-- Expanded Footer Content -->
+    <div class="w-full border-t border-white/10 bg-black/80 backdrop-blur-md mt-auto pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <!-- CTA & Divider -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12 border-b border-white/10 pb-12">
+          <h2 class="text-3xl font-bold text-white mb-6 md:mb-0">Set up a Consultation!</h2>
+          <a href="#contact"
+            class="flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold hover:bg-[#7600FF] hover:text-white transition-all">
+            <span>Let's Talk</span>
+            <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+          </a>
+        </div>
+
+        <!-- Links Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-sm">
+          <!-- Col 1 -->
+          <div>
+            <h4 class="text-[#7600FF] font-bold uppercase tracking-widest mb-4">Branding</h4>
+            <ul class="space-y-2 text-white/60">
+              <li><a href="#" class="hover:text-white transition">Naming Solutions</a></li>
+              <li><a href="#" class="hover:text-white transition">Taglines & Story</a></li>
+              <li><a href="#" class="hover:text-white transition">Buyer Persona</a></li>
+              <li><a href="#" class="hover:text-white transition">Positioning</a></li>
+              <li><a href="#" class="hover:text-white transition">Brand Audit</a></li>
+            </ul>
+          </div>
+          <!-- Col 2 -->
+          <div>
+            <h4 class="text-[#7600FF] font-bold uppercase tracking-widest mb-4">Identity</h4>
+            <ul class="space-y-2 text-white/60">
+              <li><a href="#" class="hover:text-white transition">Logo Design</a></li>
+              <li><a href="#" class="hover:text-white transition">Visual Guidelines</a></li>
+              <li><a href="#" class="hover:text-white transition">Iconography</a></li>
+              <li><a href="#" class="hover:text-white transition">Typography</a></li>
+            </ul>
+          </div>
+          <!-- Col 3 -->
+          <div>
+            <h4 class="text-[#7600FF] font-bold uppercase tracking-widest mb-4">Digital</h4>
+            <ul class="space-y-2 text-white/60">
+              <li><a href="#" class="hover:text-white transition">Web Development</a></li>
+              <li><a href="#" class="hover:text-white transition">UI/UX Design</a></li>
+              <li><a href="#" class="hover:text-white transition">Hosting</a></li>
+              <li><a href="#" class="hover:text-white transition">Dashboards</a></li>
+            </ul>
+          </div>
+          <!-- Col 4 -->
+          <div>
+            <h4 class="text-[#7600FF] font-bold uppercase tracking-widest mb-4">Marketing</h4>
+            <ul class="space-y-2 text-white/60">
+              <li><a href="#" class="hover:text-white transition">Presentations</a></li>
+              <li><a href="#" class="hover:text-white transition">Brochures & Flyers</a></li>
+              <li><a href="#" class="hover:text-white transition">Company Profiles</a></li>
+              <li><a href="#" class="hover:text-white transition">Signage</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Contact & Location -->
+        <div class="grid md:grid-cols-4 gap-8 mb-12 border-t border-white/10 pt-12">
+          <div class="md:col-span-1">
+            <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/icons/logo.svg" alt="Scarlet Royal"
+              class="h-10 opacity-50 mb-4">
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#7600FF] uppercase mb-2">Visit Us</h4>
+            <p class="text-white/60 text-sm">Conrad Dubai Tower 1208,<br>Sheikh Zayed Rd, Dubai, UAE</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#7600FF] uppercase mb-2">Contact</h4>
+            <p class="text-white/60 text-sm">
+              <a href="tel:+971563703000" class="block hover:text-white">+971 56 370 3000</a>
+              <a href="tel:+97145772298" class="block hover:text-white">+971 4 577 2298</a>
+              <a href="mailto:info@scarletroyal.ae" class="block hover:text-white mt-2">info@scarletroyal.ae</a>
+            </p>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#7600FF] uppercase mb-2">Socials</h4>
+            <div class="flex gap-3">
+              <a href="https://www.tiktok.com/@scarletroyal.ae" target="_blank"
+                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#7600FF] transition"><iconify-icon
+                  icon="ph:tiktok-logo"></iconify-icon></a>
+              <a href="https://www.instagram.com/scarletroyal.ae" target="_blank"
+                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#7600FF] transition"><iconify-icon
+                  icon="ph:instagram-logo"></iconify-icon></a>
+              <a href="https://facebook.com/scarletroyal.ae" target="_blank"
+                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#7600FF] transition"><iconify-icon
+                  icon="ph:facebook-logo"></iconify-icon></a>
+              <a href="https://www.linkedin.com/company/scarletroyal/" target="_blank"
+                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#7600FF] transition"><iconify-icon
+                  icon="ph:linkedin-logo"></iconify-icon></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners & Copyright -->
+        <div class="flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 gap-6">
+          <div class="flex gap-6 items-center">
+            <a href="https://clutch.co/profile/scarlet-royal" target="_blank"><img
+                src="https://scarletroyal.ae/old_theme/theme_three/assets/img/partners/cluch.png"
+                class="h-8 opacity-50 hover:opacity-100 transition"></a>
+            <a href="http://www.goodfirms.co/" target="_blank"><img
+                src="https://scarletroyal.ae/old_theme/theme_three/assets/img/partners/goodfirms.png"
+                class="h-8 opacity-50 hover:opacity-100 transition"></a>
+          </div>
+          <div class="text-xs text-white/30 text-center md:text-right">
+            &copy; 2026 Scarlet Royal. All rights reserved. <br>
+            <a href="https://scarletroyal.ae/privacy-policy" class="hover:text-white">Privacy Policy</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GSAP Animation Logic -->
+  <!-- Import Main JS (Loader Logic) - Placed here to ensure priority -->
+  <script src="old_theme/theme_three/assets/js/app.js"></script>
+  <script>
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ---------------------------------------------------
+       1. STACKING CARDS EFFECT
+       - Each .stack-section sticks to top: 0
+       - As the Next section scrolls into view (covering the current one),
+       - We scale down and fade out the Current section.
+    --------------------------------------------------- */
+    const sections = gsap.utils.toArray('.stack-section');
+
+    sections.forEach((section, i) => {
+      // Stack section logic (kept for other sections if needed, but Portfolio is now separate)
+      // Skip the last section (nothing covers it)
+      if (i === sections.length - 1) return;
+
+      // Skip the first section (Hero) so it doesn't scale like a card
+      if (i === 0) return;
+
+      // Skip if this is the portfolio section itself (since it has its own pin logic now)
+      // Although class 'stack-section' was removed from portfolio, so this loop won't pick it up.
+
+      const nextSection = sections[i + 1];
+
+      // Animate Current Section
+      gsap.to(section, {
+        scale: 0.9,
+        // opacity: 0.2, // REMOVED as requested
+        ease: "none",
+        scrollTrigger: {
+          trigger: nextSection,
+          start: "top bottom", // When next section enters from bottom
+          end: "top top",      // When next section hits top
+          scrub: 1,            // Smooth scrubbing (1s lag) to hide jitters
+          id: `section-${i}-stack`
+        }
+      });
+    });
+
+    /* ---------------------------------------------------
+       2. HERO REVEAL ANIMATION
+    --------------------------------------------------- */
+    function revealHero() {
+      const tl = gsap.timeline();
+      tl.to("#main-header", { opacity: 1, duration: 1, ease: "power2.out" });
+    }
+
+    // Expose revealHero
+    window.revealHero = revealHero;
+
+    // Header Scroll Effect
+    const header = document.getElementById("main-header");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        header.classList.add("bg-black/80", "backdrop-blur-md", "shadow-lg");
+        header.classList.remove("mix-blend-difference"); /* Remove blend mode when bg is present for clarity */
+      } else {
+        header.classList.remove("bg-black/80", "backdrop-blur-md", "shadow-lg");
+        header.classList.add("mix-blend-difference");
+      }
+    });
+
+    /* ---------------------------------------------------
+       3. DYNAMIC STICKY OFFSET FOR TALL SECTIONS
+       - If section height > viewport height, set top to (viewport - height)
+       - This ensures it sticks only when the BOTTOM of the section is visible.
+    --------------------------------------------------- */
+    function adjustStickyAttributes() {
+      const sections = document.querySelectorAll('.stack-section');
+      const winHeight = window.innerHeight;
+
+      sections.forEach(section => {
+        const height = section.offsetHeight;
+        if (height > winHeight) {
+          // Calculate how much it should scroll before sticking
+          // We want it to stick such that the bottom aligns with viewport bottom
+          const topOffset = winHeight - height;
+          section.style.top = `${topOffset}px`;
+        } else {
+          // Fits in screen, stick to top
+          section.style.top = "0px";
+        }
+      });
+
+      // Refresh GSAP after layout changes
+      ScrollTrigger.refresh();
+    }
+
+    /* ---------------------------------------------------
+       4. WELCOME TEXT REVEAL ANIMATION (MAGIC EFFECT)
+    --------------------------------------------------- */
+    function initWelcomeAnimation() {
+      // Check if element exists
+      if (!document.querySelector('.reveal-text')) return;
+
+      // Split Text
+      const title = new SplitType('.reveal-text', { types: 'chars, words' });
+      const desc = new SplitType('.reveal-text-desc', { types: 'words' });
+
+      // Initial State (Hidden)
+      gsap.set(title.chars, {
+        opacity: 0,
+        y: 100,
+        rotateX: -90,
+        scale: 0.5,
+        color: "#7600FF" // Start with purple
+      });
+
+      gsap.set(desc.words, {
+        opacity: 0,
+        y: 20
+      });
+
+      // Animate on Scroll
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#welcome",
+          start: "top 75%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      tl.to(title.chars, {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        scale: 1,
+        color: "transparent", // Fade to transparent for outline effect
+        stagger: {
+          amount: 0.8,
+          from: "center" // From center feels more magical
+        },
+        duration: 1.5,
+        ease: "elastic.out(1, 0.5)"
+      })
+        .to(title.chars, {
+          textShadow: "0 0 20px rgba(0, 0, 0, 0.5)", // Add glow after reveal
+          duration: 1,
+          ease: "power2.out"
+        }, "-=1")
+        .to(desc.words, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.05,
+          duration: 0.8,
+          ease: "power2.out"
+        }, "-=1");
+    }
+
+    /* ---------------------------------------------------
+       5. ABOUT SECTION ANIMATION (SKEW & STATS)
+    --------------------------------------------------- */
+    function initAboutAnimation() {
+      if (!document.querySelector('.anim-about-title')) return;
+
+      // Split Title for 3D Skew
+      const title = new SplitType('.anim-about-title', { types: 'lines, words' });
+      const desc = new SplitType('.anim-about-desc p', { types: 'lines' });
+
+      // Initial States
+      gsap.set(title.words, { y: 100, rotateX: -45, opacity: 0, transformOrigin: "0% 50% -50" });
+      gsap.set(desc.lines, { y: 20, opacity: 0 });
+
+      // Counter Animation Logic
+      const stats = document.querySelectorAll('.anim-stat-number');
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 75%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // 1. Title Reveal (Skew Up)
+      tl.to(title.words, {
+        y: 0,
+        rotateX: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: 1,
+        ease: "back.out(1.7)"
+      })
+        // 2. Description Lines (Smooth Fade)
+        .to(desc.lines, {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out"
+        }, "-=0.5")
+        // 3. Stats Counter
+        .to(stats, {
+          textContent: (i, target) => target.getAttribute('data-target'),
+          duration: 2,
+          ease: "power1.out",
+          snap: { textContent: 1 }, // Snap to integer
+          stagger: 0.2,
+          onUpdate: function () {
+            this.targets().forEach(target => {
+              target.innerHTML = Math.ceil(target.textContent);
+            });
+          }
+        }, "-=0.8");
+    }
+
+    /* ---------------------------------------------------
+       6. CONTACT SECTION ANIMATION
+    --------------------------------------------------- */
+    function initContactAnimation() {
+      if (!document.querySelector('.anim-contact-heading')) return;
+
+      const label = document.querySelector('.anim-contact-label');
+      const heading = new SplitType('.anim-contact-heading', { types: 'lines, words' });
+      const button = document.querySelector('.anim-contact-btn');
+      const footerItems = document.querySelectorAll('.anim-footer-item');
+
+      // Initial States
+      gsap.set(label, { opacity: 0, y: -20 });
+      gsap.set(heading.words, { opacity: 0, y: 50, rotateX: -45, transformOrigin: "0% 50% -50" });
+      gsap.set(button, { opacity: 0, scale: 0.5 });
+      gsap.set(footerItems, { opacity: 0, y: 30 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top 60%", // Start earlier
+          end: "bottom bottom",
+          toggleActions: "play reverse play reverse"
+        }
+      });
+
+      tl.to(label, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" })
+        .to(heading.words, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: "back.out(1.5)"
+        }, "-=0.6")
+        .to(button, {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "elastic.out(1, 0.5)"
+        }, "-=0.5")
+        .to(footerItems, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out"
+        }, "-=0.8");
+    }
+
+    /* ---------------------------------------------------
+       7. NAVIGATION SMOOTH SCROLL FIX
+    --------------------------------------------------- */
+    function initSmoothNav() {
+      // Register ScrollToPlugin if available, or assume window.scrollTo
+      const navLinks = document.querySelectorAll('a[href^="#"]');
+
+      navLinks.forEach(link => {
+        // Enforce pointer events
+        link.style.pointerEvents = "auto";
+
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href');
+
+          // Handle Logo/Home Link
+          if (targetId === '#') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            // Calculate position accounting for sticky/stacking
+            let targetTop = 0;
+
+            // Native offsetTop is usually good, but if sections are transformed it might vary
+            // Using getBoundingClientRect + window.scrollY is safer
+            const rect = targetEl.getBoundingClientRect();
+            targetTop = rect.top + window.scrollY;
+
+            // Simple Scroll
+            window.scrollTo({
+              top: targetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // Initialize after load to ensure fonts are ready
+    window.addEventListener("load", () => {
+      adjustStickyAttributes();
+      initWelcomeAnimation();
+      initAboutAnimation();
+      initContactAnimation();
+      initSmoothNav();
+    });
+
+    window.addEventListener("resize", () => {
+      adjustStickyAttributes();
+      // Recalculate ScrollTrigger
+      ScrollTrigger.refresh();
+    });
+
+    // Fallback: If loader fails to call it (or redundant), triggers usually handle visibility,
+    // but here we wait for loader.
+
+    /* ---------------------------------------------------
+       3. TEXT ROTATOR (ABOUT SECTION)
+    --------------------------------------------------- */
+    const rotator = document.querySelector('.anim-text-rotator');
+    if (rotator) {
+      // Clone first element for seamless loop
+      const firstItem = rotator.children[0].cloneNode(true);
+      rotator.appendChild(firstItem);
+
+      // Timeline implementation for seamless loop:
+      const t1 = gsap.timeline({ repeat: -1 });
+      t1.to(rotator, { y: "-25%", duration: 0.8, delay: 2, ease: "power3.inOut" })
+        .to(rotator, { y: "-50%", duration: 0.8, delay: 2, ease: "power3.inOut" })
+        .to(rotator, { y: "-75%", duration: 0.8, delay: 2, ease: "power3.inOut" })
+        .set(rotator, { y: "0%" }); // Instant reset
+    }
+
+  </script>
+
+  <!-- Video Modal -->
+  <div id="video-modal"
+    class="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 px-4">
+
+    <!-- Close Button -->
+    <button onclick="closeVideoModal()"
+      class="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-[#7600FF] transition-colors z-50">
+      <iconify-icon icon="solar:close-circle-bold" width="48"></iconify-icon>
+    </button>
+
+    <div
+      class="relative w-full max-w-6xl aspect-video md:aspect-auto md:h-[80vh] bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center">
+      <video id="modal-video-player" class="max-w-full max-h-full w-full h-full object-contain" controls
+        playsinline></video>
+      <img id="modal-image-viewer" class="max-w-full max-h-full w-full h-full object-contain hidden" src="" alt="">
+    </div>
+
+    <h3 id="modal-title"
+      class="absolute bottom-10 left-1/2 -translate-x-1/2 text-2xl md:text-4xl font-bold text-white tracking-widest uppercase text-center bg-black/50 px-6 py-2 rounded-full backdrop-blur-md border border-white/10">
+    </h3>
+  </div>
+
+  <script>
+    function openVideoModal(src, title) {
+      const modal = document.getElementById('video-modal');
+      const video = document.getElementById('modal-video-player');
+      const image = document.getElementById('modal-image-viewer');
+      const titleEl = document.getElementById('modal-title');
+
+      if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+        video.src = src;
+        video.classList.remove('hidden');
+        image.classList.add('hidden');
+        // Auto play logic
+        video.play().catch(e => console.log('Autoplay prevent', e));
+      } else {
+        image.src = src;
+        image.classList.remove('hidden');
+        video.classList.add('hidden');
+        video.pause();
+      }
+
+      titleEl.textContent = title;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function openImageModal(src, title) {
+      openVideoModal(src, title);
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('video-modal');
+      const video = document.getElementById('modal-video-player');
+
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        video.pause();
+        video.currentTime = 0;
+        video.src = ""; // Stop buffering
+      }, 500);
+    }
+  </script>
+
+</body>
+
+</body>
+<!-- ==================== PROJECT POPUPS ==================== -->
+
+<!-- Modal 10: Rabdan Line -->
+<div id="modal-10" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
+  <div class="relative min-h-screen py-20 px-4 md:px-10">
+    <!-- Close Button -->
+    <button onclick="closeProjectModal('modal-10')"
+      class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+      <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
+    </button>
+
+    <div class="max-w-6xl mx-auto space-y-16">
+      <!-- Header -->
+      <div class="text-center animate-modal-up">
+        <span
+          class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Fashion</span>
+        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Rabdan Line</h1>
+        <p class="text-white/60 max-w-2xl mx-auto text-lg">Crafting Strength, Defining Style.</p>
+      </div>
+
+      <!-- Hero Media -->
+      <div
+        class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
+        <video src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img2.mp4"
+          class="w-full h-full object-cover" controls autoplay muted loop></video>
+      </div>
+
+      <!-- Info Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
+          <p class="text-white/80">Fashion</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
+          <p class="text-white/80">United Arab Emirates</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Client</h4>
+          <p class="text-white/80">Khayal Company</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
+          <p class="text-white/80">300+</p>
+        </div>
+      </div>
+
+      <!-- Narrative -->
+      <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
+        <div class="space-y-6">
+          <h3 class="text-2xl font-bold text-white">The Challenge</h3>
+          <p class="text-white/60 leading-relaxed text-lg">
+            Due to the widespread use of the name in the UAE across various fields, Rabdan has struggled to establish
+            itself as a clear and distinct brand. In this case, the strength of the brand's visibility lies in the
+            simplicity of ensuring that the branding process has been academically and professionally prepared,
+            especially since the brand primarily offers one type of product (Sudairi).
+          </p>
+        </div>
+        <div class="space-y-6">
+          <h3 class="text-2xl font-bold text-white">Our Solution</h3>
+          <p class="text-white/60 leading-relaxed text-lg">
+            After we completed the rebranding process for Rabdan Line, following a thorough case study, we created a
+            professional and academically grounded website to showcase Rabdan Line’s products. We also developed a
+            unique slogan for them: "Crafting Strength, Defining Style."
+          </p>
+          <p class="text-white/60 leading-relaxed text-lg">
+            The Rabdan Line logo features an Arabian horse, symbolizing strength and elegance, crafted from lines that
+            reflect the brand’s name. The red and green colors, inspired by the UAE flag, highlight the brand’s cultural
+            roots.
+          </p>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
+        <div class="group relative rounded-xl overflow-hidden aspect-square border border-white/10">
+          <span class="absolute top-2 left-2 bg-black/80 text-white text-[10px] px-2 py-1 rounded">Before</span>
+          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box1.png"
+            class="w-full h-full object-cover">
+        </div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box2.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box3.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box4.png"
+            class="w-full h-full object-cover"></div>
+      </div>
+
+      <!-- Footer Image -->
+      <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
+        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img1.png"
+          class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 17: Kingdom Design -->
+<div id="modal-17" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
+  <div class="relative min-h-screen py-20 px-4 md:px-10">
+    <button onclick="closeProjectModal('modal-17')"
+      class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+      <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
+    </button>
+
+    <div class="max-w-6xl mx-auto space-y-16">
+      <div class="text-center animate-modal-up">
+        <span
+          class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Construction</span>
+        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Kingdom Design LTD</h1>
+        <p class="text-white/60 max-w-2xl mx-auto text-lg">Built with Purpose. Crafted for Impact.</p>
+      </div>
+
+      <div
+        class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
+        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img2.png"
+          class="w-full h-full object-cover">
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
+          <p class="text-white/80">Construction</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
+          <p class="text-white/80">Saudi Arabia</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Service</h4>
+          <p class="text-white/80">Rebranding</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
+          <p class="text-white/80">320+</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
+        <div class="space-y-6">
+          <h3 class="text-2xl font-bold text-white">The Challenge</h3>
+          <p class="text-white/60 leading-relaxed text-lg">
+            The company needed to differentiate in a competitive market where construction firms often relied on generic
+            branding. It had to communicate both modern sophistication and the timeless qualities of trust and
+            reliability.
+          </p>
+        </div>
+        <div class="space-y-6">
+          <h3 class="text-2xl font-bold text-white">Our Solution</h3>
+          <p class="text-white/60 leading-relaxed text-lg">
+            A bold geometric logo, a refined gold-and-black palette, and clear typography established a premium,
+            professional presence. Warm yet confident messaging and supporting visual elements unified the identity
+            under the tagline "Built with Purpose. Crafted for Impact."
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box1.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box2.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box3.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box4.png"
+            class="w-full h-full object-cover"></div>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
+        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img1.png"
+          class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 15: Himaya -->
+<div id="modal-15" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
+  <div class="relative min-h-screen py-20 px-4 md:px-10">
+    <button onclick="closeProjectModal('modal-15')"
+      class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+      <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
+    </button>
+
+    <div class="max-w-6xl mx-auto space-y-16">
+      <div class="text-center animate-modal-up">
+        <span
+          class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Insurance</span>
+        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Himaya</h1>
+        <p class="text-white/60 max-w-2xl mx-auto text-lg">Independent insurance broker in Oman.</p>
+      </div>
+
+      <div
+        class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
+        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/aimg2.png"
+          onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img2.png'"
+          class="w-full h-full object-cover">
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
+          <p class="text-white/80">Insurance</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
+          <p class="text-white/80">Oman</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Service</h4>
+          <p class="text-white/80">Branding</p>
+        </div>
+        <div>
+          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
+          <p class="text-white/80">320+</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
+        <div class="space-y-6">
+          <h3 class="text-2xl font-bold text-white">The Challenge</h3>
+          <p class="text-white/60 leading-relaxed text-lg">
+            Insurance in Oman is often viewed as complicated, transactional, and filled with jargon. Himaya needed to
+            stand apart by offering simplicity and trust, while still projecting premium credibility. The challenge was
+            to balance professionalism with empathy, and modern innovation with cultural grounding.
+          </p>
+        </div>
+        <div class="space-y-6">
+          <h3 class="text-2xl font-bold text-white">Our Solution</h3>
+          <p class="text-white/60 leading-relaxed text-lg">
+            The identity centered on a logo inspired by bridges and arches, symbolizing clarity and protection. A calm
+            palette of navy, teal, seafoam green, and peach beige conveyed trust and modernity. Clear, empathetic
+            messaging and structured visuals reinforced simplicity.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box1.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box2.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box3.png"
+            class="w-full h-full object-cover"></div>
+        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box4.png"
+            class="w-full h-full object-cover"></div>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
+        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img1.png"
+          class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Project Modal Logic
+  window.openProjectModal = function (id) {
+    const modal = document.getElementById(id);
+    if (!modal) {
+      console.error(`Modal with ID ${id} not found`);
+      return;
+    }
+    document.body.style.overflow = 'hidden'; // Lock Body Scroll
+    modal.classList.remove('hidden');
+
+    // Animate In specific elements
+    if (typeof gsap !== 'undefined') {
+      const elements = modal.querySelectorAll('.animate-modal-up');
+      gsap.fromTo(elements,
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
+      );
+    } else {
+      console.warn('GSAP not loaded');
+    }
+  };
+
+  window.closeProjectModal = function (id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    if (typeof gsap !== 'undefined') {
+      const elements = modal.querySelectorAll('.animate-modal-up');
+      gsap.to(elements, {
+        y: -20, opacity: 0, duration: 0.3, stagger: 0.05,
+        onComplete: () => {
+          modal.classList.add('hidden');
+          document.body.style.overflow = ''; // Unlock Body Scroll
+        }
+      });
+    } else {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  };
+</script>
+</body>
+
+</html>
