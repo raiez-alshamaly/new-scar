@@ -22,11 +22,39 @@
     <!-- Custom Loader CSS -->
     <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/loaders/loader.css">
 
+
+
+
     <style>
         :root {
             --color-primary: #7600FF;
             --color-dark: #141414;
             --color-surface: #1e1e1e;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            /* Track color */
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            /* Handle color */
+            border-radius: 4px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            /* Space around handle */
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary);
+            /* Handle hover color */
         }
 
         body {
@@ -201,8 +229,9 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Tool 1 -->
+                <!-- Tool 1: Maps Scraper -->
                 <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
-                    onclick="alert('Tool 1 Coming Soon!')">
+                    onclick="openModal('maps-scraper')">
                     <div
                         class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         <iconify-icon icon="solar:arrow-right-up-linear"
@@ -212,13 +241,13 @@
 
                     <div
                         class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                        <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="32"
+                        <iconify-icon icon="solar:map-point-bold-duotone" width="32"
                             class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
                     </div>
 
-                    <h3 class="text-2xl font-bold mb-3 text-white">AI Generator</h3>
-                    <p class="text-white/40 text-sm leading-relaxed mb-8">Generate specialized content, copy, and ideas
-                        using our fine-tuned models.</p>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Maps Scraper</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Extract business leads, ratings, and contacts
+                        directly from Maps.</p>
 
                     <div
                         class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
@@ -226,9 +255,9 @@
                     </div>
                 </div>
 
-                <!-- Tool 2 -->
+                <!-- Tool 2: SEO Improving By Ai -->
                 <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
-                    onclick="alert('Tool 2 Coming Soon!')">
+                    onclick="openModal('seo-ai')">
                     <div
                         class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         <iconify-icon icon="solar:arrow-right-up-linear"
@@ -238,13 +267,13 @@
 
                     <div
                         class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                        <iconify-icon icon="solar:file-check-bold-duotone" width="32"
+                        <iconify-icon icon="solar:graph-up-bold-duotone" width="32"
                             class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
                     </div>
 
-                    <h3 class="text-2xl font-bold mb-3 text-white">SEO Analyzer</h3>
-                    <p class="text-white/40 text-sm leading-relaxed mb-8">Deep scan your website for SEO improvements,
-                        keyword gaps, and optimizations.</p>
+                    <h3 class="text-2xl font-bold mb-3 text-white">SEO Improving By Ai</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Analyze your content and get AI-powered
+                        suggestions for better ranking.</p>
 
                     <div
                         class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
@@ -252,57 +281,7 @@
                     </div>
                 </div>
 
-                <!-- Tool 3 -->
-                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
-                    onclick="alert('Tool 3 Coming Soon!')">
-                    <div
-                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <iconify-icon icon="solar:arrow-right-up-linear"
-                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
-                            width="24"></iconify-icon>
-                    </div>
 
-                    <div
-                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                        <iconify-icon icon="solar:link-circle-bold-duotone" width="32"
-                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
-                    </div>
-
-                    <h3 class="text-2xl font-bold mb-3 text-white">Link Shortener</h3>
-                    <p class="text-white/40 text-sm leading-relaxed mb-8">Create branded short links instantly with
-                        built-in tracking analytics.</p>
-
-                    <div
-                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
-                        <span>Launch App</span>
-                    </div>
-                </div>
-
-                <!-- Tool 4 -->
-                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
-                    onclick="alert('Tool 4 Coming Soon!')">
-                    <div
-                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <iconify-icon icon="solar:arrow-right-up-linear"
-                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
-                            width="24"></iconify-icon>
-                    </div>
-
-                    <div
-                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                        <iconify-icon icon="solar:gallery-wide-bold-duotone" width="32"
-                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
-                    </div>
-
-                    <h3 class="text-2xl font-bold mb-3 text-white">Image Optimize</h3>
-                    <p class="text-white/40 text-sm leading-relaxed mb-8">Compress and optimize images for web without
-                        losing visual quality.</p>
-
-                    <div
-                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
-                        <span>Launch App</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -324,48 +303,323 @@
 
             <div
                 class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 opacity-60 hover:opacity-100 transition-opacity duration-500">
-                <!-- CS 1 -->
+                <!-- Idea 2 Funnel -->
                 <div
                     class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
                     <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
-                        <iconify-icon icon="solar:lock-password-bold-duotone" width="24"></iconify-icon>
+                        <iconify-icon icon="solar:lightbulb-bolt-bold-duotone" width="24"></iconify-icon>
                     </div>
-                    <h3 class="text-lg font-bold mb-2 text-white/50">Video Transcriber</h3>
-                    <p class="text-xs text-white/30">AI-powered video to text conversion.</p>
-                </div>
-
-                <!-- CS 2 -->
-                <div
-                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
-                        <iconify-icon icon="solar:palette-bold-duotone" width="24"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2 text-white/50">Palette Gen</h3>
-                    <p class="text-xs text-white/30">Extract colors from images instantly.</p>
-                </div>
-
-                <!-- CS 3 -->
-                <div
-                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
-                        <iconify-icon icon="solar:user-id-bold-duotone" width="24"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2 text-white/50">Bio Generator</h3>
-                    <p class="text-xs text-white/30">Craft the perfect social media bio.</p>
-                </div>
-
-                <!-- CS 4 -->
-                <div
-                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
-                        <iconify-icon icon="solar:letter-bold-duotone" width="24"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2 text-white/50">Email Drafter</h3>
-                    <p class="text-xs text-white/30">Write professional emails in seconds.</p>
+                    <h3 class="text-lg font-bold mb-2 text-white/50">Idea 2 Funnel</h3>
+                    <p class="text-xs text-white/30">Transform raw ideas into complete sales funnels instantly.</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- ==================== MODALS CONTAINER ==================== -->
+    <div id="modal-container" class="fixed inset-0 z-[200] hidden flex items-center justify-center px-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal()"></div>
+
+        <!-- Maps Scraper Modal -->
+        <div id="modal-maps-scraper"
+            class="modal-content hidden relative bg-[#111] border border-white/10 rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl shadow-[#7600FF]/20">
+            <!-- Header -->
+            <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#161616]">
+                <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                    <iconify-icon icon="solar:map-point-bold-duotone" class="text-[#7600FF]"></iconify-icon>
+                    Maps Scraper
+                </h3>
+                <button onclick="closeModal()" class="text-white/60 hover:text-white transition-colors">
+                    <iconify-icon icon="solar:close-circle-bold" width="24"></iconify-icon>
+                </button>
+            </div>
+
+            <div class="relative flex-1 overflow-hidden min-h-[500px] flex flex-col">
+                <div id="maps-content" class="p-4 md:p-6 flex-1 overflow-y-auto custom-scrollbar">
+                    <div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-8">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Target
+                                Keyword</label>
+                            <input type="text" id="maps-q" placeholder="e.g. Gym, Cafe"
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Location</label>
+                            <input type="text" id="maps-l" placeholder="e.g. Dubai, London"
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Max Results</label>
+                            <input type="number" id="maps-n" value="10" min="1" max="50"
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                        </div>
+                    </div>
+
+                    <button onclick="runMapsScraper()" id="maps-btn"
+                        class="w-full bg-[#7600FF] hover:bg-[#6000d0] text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(118,0,255,0.3)] hover:shadow-[0_0_30px_rgba(118,0,255,0.5)] flex justify-center items-center gap-2">
+                        <span>Start Scraping</span>
+                        <iconify-icon icon="solar:rocket-bold-duotone" width="20"></iconify-icon>
+                    </button>
+
+                    <!-- Results Area -->
+                    <div id="maps-results" class="mt-8 space-y-4 hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-white/80 font-bold">Results</h4>
+                        </div>
+                        <div id="maps-results-grid" class="grid md:grid-cols-2 gap-4"></div>
+                    </div>
+                </div>
+
+                <!-- Loading Overlay -->
+                <div id="maps-loading"
+                    class="absolute inset-0 bg-[#111] z-50 hidden flex flex-col items-center justify-center p-8 text-center bg-opacity-95 backdrop-blur-sm">
+                    <div class="loader-logo-wrapper mb-6 animate-pulse">
+                        <svg viewBox="0 0 203 169"
+                            class="w-16 h-16 md:w-24 md:h-24 mx-auto drop-shadow-[0_0_15px_rgba(118,0,255,0.5)]">
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M6.3 41L38.67 8.63V42.56L0 81.24V56.22C0 50.51 2.27 45.04 6.3 41Z"></path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M163.83 119.91L202.5 81.24V105.79C202.5 111.79 200.12 117.55 195.88 121.79L163.83 153.84V137.07L132.1 168.8H70.4099L38.6799 137.07V82.16L101.25 144.74L163.83 82.16V119.91Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M0 108.43V81.24L38.67 119.91V153.84L4.76 119.93C1.71 116.88 0 112.74 0 108.43Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M202.5 56.22V81.24L163.83 42.56V79.98L101.25 17.4L38.6799 79.98V25.07L63.7499 0H138.76L163.83 25.07V8.63L196.2 41C200.24 45.04 202.5 50.51 202.5 56.22Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Processing Data...</h4>
+                    <p class="text-white/50 text-sm max-w-md mb-8">This involves deep scraping and may take <span
+                            class="text-[#7600FF]">1 to 5 minutes</span>. Please do not close the tab.</p>
+
+                    <button onclick="cancelOperation('maps')"
+                        class="px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold transition-colors flex items-center gap-2">
+                        <iconify-icon icon="solar:close-circle-bold"></iconify-icon> Cancel Operation
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO AI Modal -->
+        <div id="modal-seo-ai"
+            class="modal-content hidden relative bg-[#111] border border-white/10 rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl shadow-[#7600FF]/20">
+            <!-- Header -->
+            <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#161616]">
+                <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                    <iconify-icon icon="solar:graph-up-bold-duotone" class="text-[#7600FF]"></iconify-icon>
+                    SEO Improving By AI
+                </h3>
+                <button onclick="closeModal()" class="text-white/60 hover:text-white transition-colors">
+                    <iconify-icon icon="solar:close-circle-bold" width="24"></iconify-icon>
+                </button>
+            </div>
+
+            <div class="relative flex-1 overflow-hidden min-h-[500px] flex flex-col">
+                <div id="seo-content" class="p-4 md:p-6 flex-1 overflow-y-auto custom-scrollbar bg-[#0a0a0a]">
+                    <div class="space-y-4 mb-8">
+                        <label
+                            class="text-xs font-bold text-white/50 uppercase tracking-widest flex items-center gap-2">
+                            <iconify-icon icon="solar:document-text-bold-duotone"></iconify-icon> Content to Analyze
+                        </label>
+                        <div class="relative group">
+                            <textarea id="seo-text" rows="5"
+                                placeholder="Paste your article content here for deep analysis..."
+                                class="w-full bg-[#111] border border-white/10 rounded-xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-[#7600FF] focus:bg-[#161616] transition-all resize-none font-mono text-sm leading-relaxed"></textarea>
+                            <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <iconify-icon icon="solar:keyboard-bold-duotone" class="text-white/20"
+                                    width="20"></iconify-icon>
+                            </div>
+                        </div>
+
+                        <button onclick="runSeoAnalysis()" id="seo-btn"
+                            class="w-full bg-gradient-to-r from-[#7600FF] to-[#9d4eff] hover:from-[#6000d0] hover:to-[#8a3ee0] text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(118,0,255,0.3)] hover:shadow-[0_0_30px_rgba(118,0,255,0.5)] flex justify-center items-center gap-3 transform active:scale-[0.99]">
+                            <span class="tracking-wide">Start AI Analysis</span>
+                            <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="22"
+                                class="animate-pulse"></iconify-icon>
+                        </button>
+                    </div>
+
+                    <!-- Results Area -->
+                    <div id="seo-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+
+
+                        <!-- 1. Overview Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                            <!-- Score Card -->
+                            <div
+                                class="bg-[#111] border border-white/5 rounded-2xl p-5 relative overflow-hidden group hover:border-[#7600FF]/30 transition-colors">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <iconify-icon icon="solar:chart-square-bold-duotone" width="60"
+                                        class="text-[#7600FF]"></iconify-icon>
+                                </div>
+                                <span
+                                    class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">Readability
+                                    Score</span>
+                                <div class="flex items-end gap-2">
+                                    <div class="text-5xl font-black text-white tracking-tighter" id="seo-score">0</div>
+                                    <span class="text-sm font-medium text-white/40 mb-1.5">/ 100</span>
+                                </div>
+                            </div>
+
+                            <!-- Stats Cards -->
+                            <div class="bg-[#111] border border-white/5 rounded-2xl p-5 flex flex-col justify-center">
+                                <span
+                                    class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-1">Headings
+                                    (H2)</span>
+                                <div class="text-2xl font-bold text-white" id="seo-h2-count">-</div>
+                            </div>
+                            <div class="bg-[#111] border border-white/5 rounded-2xl p-5 flex flex-col justify-center">
+                                <span
+                                    class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-1">Sub-Headings
+                                    (H3)</span>
+                                <div class="text-2xl font-bold text-white" id="seo-h3-count">-</div>
+                            </div>
+                            <div class="bg-[#111] border border-white/5 rounded-2xl p-5 flex flex-col justify-center">
+                                <span
+                                    class="text-xs font-bold text-white/40 uppercase tracking-widest block mb-1">Keywords
+                                    Found</span>
+                                <div class="text-2xl font-bold text-white" id="seo-kw-count">-</div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Main Content Grid -->
+                        <div class="grid lg:grid-cols-3 gap-4 md:gap-6">
+                            <!-- Left Column: Guidelines & Meta -->
+                            <div class="lg:col-span-1 space-y-6">
+                                <!-- Overall Feedback -->
+                                <div class="bg-[#161616] border border-white/10 rounded-2xl p-6 relative">
+                                    <h4
+                                        class="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-widest">
+                                        <iconify-icon icon="solar:chat-round-line-bold-duotone"
+                                            class="text-[#7600FF]"></iconify-icon>
+                                        AI Feedback
+                                    </h4>
+                                    <p class="text-sm text-white/70 leading-relaxed" id="seo-summary">
+                                        Analysis pending...
+                                    </p>
+                                </div>
+
+                                <!-- Keywords -->
+                                <div class="bg-[#161616] border border-white/10 rounded-2xl p-6">
+                                    <h4
+                                        class="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-widest">
+                                        <iconify-icon icon="solar:tag-horizontal-bold-duotone"
+                                            class="text-[#7600FF]"></iconify-icon>
+                                        Focus Keywords
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2" id="seo-keywords"></div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Meta & Structure -->
+                            <div class="lg:col-span-2 space-y-6">
+                                <!-- Meta Tags Preview -->
+                                <div class="bg-[#161616] border border-white/10 rounded-2xl p-1 overflow-hidden">
+                                    <div
+                                        class="bg-[#111] px-5 py-3 border-b border-white/5 flex justify-between items-center">
+                                        <span
+                                            class="text-xs font-bold text-white/50 uppercase tracking-widest flex items-center gap-2">
+                                            <iconify-icon icon="logos:google-icon"></iconify-icon> SERP Preview
+                                        </span>
+                                    </div>
+                                    <div class="p-6">
+                                        <!-- Title -->
+                                        <div class="mb-4 group relative">
+                                            <label
+                                                class="text-[10px] font-bold text-[#7600FF] uppercase mb-1 block">Meta
+                                                Title</label>
+                                            <div class="flex gap-2 items-start">
+                                                <h3 class="text-xl text-[#8ab4f8] hover:underline cursor-pointer truncate font-medium min-w-0 flex-1"
+                                                    id="seo-meta-title">Measuring...</h3>
+                                                <button onclick="copyText('seo-meta-title')"
+                                                    class="opacity-0 group-hover:opacity-100 transition-opacity text-white/50 hover:text-white shrink-0"
+                                                    title="Copy">
+                                                    <iconify-icon icon="solar:copy-bold-duotone"></iconify-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- URL dummy -->
+                                        <div class="flex items-center gap-1 text-sm text-[#202124] mb-1">
+                                            <span
+                                                class="w-6 h-6 rounded-full bg-gray-600 flex items-center justify-center text-[10px] text-white">S</span>
+                                            <div class="flex flex-col">
+                                                <span class="text-[#dadce0] text-xs">scarletroyal.ae › tools ›
+                                                    seo</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Description -->
+                                        <div class="group relative">
+                                            <label
+                                                class="text-[10px] font-bold text-[#7600FF] uppercase mb-1 block">Meta
+                                                Description</label>
+                                            <div class="flex gap-2 text-sm text-[#bdc1c6] leading-snug items-start">
+                                                <p id="seo-meta-desc" class="line-clamp-2 min-w-0 flex-1 break-words">
+                                                    Analysis pending...</p>
+                                                <button onclick="copyText('seo-meta-desc')"
+                                                    class="opacity-0 group-hover:opacity-100 transition-opacity text-white/50 hover:text-white shrink-0"
+                                                    title="Copy">
+                                                    <iconify-icon icon="solar:copy-bold-duotone"></iconify-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Structure Tree -->
+                                <div class="bg-[#161616] border border-white/10 rounded-2xl p-6">
+                                    <h4
+                                        class="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-widest">
+                                        <iconify-icon icon="solar:list-bold-duotone"
+                                            class="text-[#7600FF]"></iconify-icon>
+                                        Heading Structure
+                                    </h4>
+                                    <div class="bg-[#111] rounded-xl p-4 border border-white/5 max-h-[300px] overflow-y-auto custom-scrollbar font-mono text-xs leading-loose"
+                                        id="seo-structure">
+                                        <div class="text-white/30 italic text-center py-4">Structure analysis will
+                                            appear here...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Overlay -->
+                <div id="seo-loading"
+                    class="absolute inset-0 bg-[#0a0a0a] z-50 hidden flex flex-col items-center justify-center p-8 text-center bg-opacity-95 backdrop-blur-sm">
+                    <div class="loader-logo-wrapper mb-6 animate-pulse">
+                        <svg viewBox="0 0 203 169"
+                            class="w-16 h-16 md:w-24 md:h-24 mx-auto drop-shadow-[0_0_15px_rgba(118,0,255,0.5)]">
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M6.3 41L38.67 8.63V42.56L0 81.24V56.22C0 50.51 2.27 45.04 6.3 41Z"></path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M163.83 119.91L202.5 81.24V105.79C202.5 111.79 200.12 117.55 195.88 121.79L163.83 153.84V137.07L132.1 168.8H70.4099L38.6799 137.07V82.16L101.25 144.74L163.83 82.16V119.91Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M0 108.43V81.24L38.67 119.91V153.84L4.76 119.93C1.71 116.88 0 112.74 0 108.43Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M202.5 56.22V81.24L163.83 42.56V79.98L101.25 17.4L38.6799 79.98V25.07L63.7499 0H138.76L163.83 25.07V8.63L196.2 41C200.24 45.04 202.5 50.51 202.5 56.22Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Analyzing Content...</h4>
+                    <p class="text-white/50 text-sm max-w-md mb-8">AI is processing your text. This may take <span
+                            class="text-[#7600FF]">1 to 5 minutes</span>. Please do not close the tab.</p>
+
+                    <button onclick="cancelOperation('seo')"
+                        class="px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold transition-colors flex items-center gap-2">
+                        <iconify-icon icon="solar:close-circle-bold"></iconify-icon> Cancel Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="border-t border-white/10 bg-black py-12">
