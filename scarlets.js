@@ -163,6 +163,7 @@ document.addEventListener("keydown", (e) => {
 // Global AbortControllers
 let mapsController = null;
 let seoController = null;
+let ideaController = null;
 
 function cancelOperation(type) {
     if (type === 'maps' && mapsController) {
@@ -178,6 +179,13 @@ function cancelOperation(type) {
         document.getElementById("seo-loading").classList.add("hidden");
         document.getElementById("seo-btn").disabled = false;
         console.log('SEO operation cancelled by user');
+    }
+    if (type === 'idea' && ideaController) {
+        ideaController.abort();
+        ideaController = null;
+        document.getElementById("idea-loading").classList.add("hidden");
+        document.getElementById("idea-btn").disabled = false;
+        console.log('Idea operation cancelled by user');
     }
 }
 
@@ -431,6 +439,177 @@ async function runSeoAnalysis() {
         if (loadingOverlay) loadingOverlay.classList.add("hidden");
         btn.disabled = false;
         seoController = null;
+    }
+}
+
+// --------------------------------------------- //
+// Idea 2 Funnel Logic
+// --------------------------------------------- //
+
+async function runIdea2Funnel() {
+    const text = document.getElementById("idea-text").value;
+    const industry = document.getElementById("idea-industry").value || "General";
+    const market = document.getElementById("idea-market").value || "Global";
+    const budget = document.getElementById("idea-budget").value;
+    const goal = document.getElementById("idea-goal").value;
+
+    const btn = document.getElementById("idea-btn");
+    const resultsContainer = document.getElementById("idea-results");
+    const loadingOverlay = document.getElementById("idea-loading");
+
+    if (!text || text.length < 10) {
+        alert("Please describe your business idea in at least 10 characters.");
+        return;
+    }
+
+    // Reset Controller
+    if (ideaController) ideaController.abort();
+    ideaController = new AbortController();
+
+    // Loading State
+    loadingOverlay.classList.remove("hidden");
+    btn.disabled = true;
+    resultsContainer.classList.add("hidden");
+
+    try {
+        const response = await fetch("https://prebronchial-rhythmlessly-regina.ngrok-free.dev/webhook/IDEi2Funnel", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                text: text,
+                context: {
+                    industry: industry,
+                    target_market: market,
+                    budget_range: budget,
+                    goal: goal
+                },
+                meta: {
+                    source: "Scarlet Royal Website",
+                    language: "en"
+                }
+            }),
+            signal: ideaController.signal
+        });
+
+        if (!response.ok) throw new Error("Failed to generate blueprint");
+
+        const dataArray = await response.json();
+        const data = dataArray[0];
+
+        if (data && data.funnel_blueprint) {
+            const bp = data.funnel_blueprint;
+            resultsContainer.classList.remove("hidden");
+
+            // 1. Summary
+            document.getElementById("idea-core").textContent = bp.project_summary?.core_idea || "N/A";
+            document.getElementById("idea-positioning").textContent = bp.project_summary?.positioning_statement || "N/A";
+
+            // Avatar formatted
+            const avatar = bp.project_summary?.target_avatar;
+            if (avatar) {
+                let avatarHTML = `<strong>Demographics:</strong> ${avatar.demographics || 'N/A'}<br><br>`;
+                if (avatar.pain_points) avatarHTML += `<strong>Pain Points:</strong><br>• ${avatar.pain_points.join('<br>• ')}<br><br>`;
+                if (avatar.desired_outcomes) avatarHTML += `<strong>Desired Outcomes:</strong><br>• ${avatar.desired_outcomes.join('<br>• ')}`;
+                document.getElementById("idea-avatar").innerHTML = avatarHTML;
+            }
+
+            // 2. Offer
+            document.getElementById("idea-offer-main").textContent = bp.offer_engineering?.main_offer || "N/A";
+            document.getElementById("idea-offer-price").textContent = bp.offer_engineering?.pricing_strategy || "N/A";
+            document.getElementById("idea-offer-risk").textContent = bp.offer_engineering?.risk_reversal || "N/A";
+
+            const stackList = document.getElementById("idea-offer-stack");
+            stackList.innerHTML = "";
+            if (bp.offer_engineering?.value_stack) {
+                bp.offer_engineering.value_stack.forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "flex justify-between items-start gap-2 border-b border-white/5 pb-2 last:border-0";
+                    li.innerHTML = `<span>${item.component}</span> <span class="text-[#7600FF] font-bold whitespace-nowrap">${item.perceived_value}</span>`;
+                    stackList.appendChild(li);
+                });
+            }
+
+            // 3. Funnel Steps
+            const stepsContainer = document.getElementById("idea-funnel-steps");
+            stepsContainer.innerHTML = "";
+            if (bp.funnel_architecture?.steps) {
+                bp.funnel_architecture.steps.forEach((step, i) => {
+                    const stepDiv = document.createElement("div");
+                    stepDiv.className = "bg-[#161616] border border-white/10 rounded-xl p-4";
+
+                    let elementsHTML = "";
+                    if (step.key_elements) {
+                        elementsHTML = `<ul class="mt-3 space-y-1 text-xs text-white/50 pl-4 list-disc marker:text-[#7600FF]">
+                            ${step.key_elements.map(el => `<li>${el}</li>`).join('')}
+                        </ul>`;
+                    }
+
+                    stepDiv.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <h5 class="font-bold text-white text-sm flex items-center gap-2">
+                                <span class="bg-white/10 text-xs w-6 h-6 rounded flex items-center justify-center text-white/60">${i + 1}</span>
+                                ${step.step_name}
+                            </h5>
+                        </div>
+                        <p class="text-xs text-[#7600FF] font-medium mb-2">${step.objective}</p>
+                        ${elementsHTML}
+                    `;
+                    stepsContainer.appendChild(stepDiv);
+                });
+            }
+
+            // 4. Traffic
+            const trafficList = document.getElementById("idea-traffic-channels");
+            trafficList.innerHTML = "";
+            if (bp.traffic_strategy?.primary_channels) {
+                bp.traffic_strategy.primary_channels.forEach(ch => {
+                    const li = document.createElement("li");
+                    li.className = "text-sm text-white/70 flex items-start gap-2";
+                    li.innerHTML = `<iconify-icon icon="solar:check-circle-bold" class="text-[#7600FF] mt-0.5 min-w-[14px]"></iconify-icon> ${ch}`;
+                    trafficList.appendChild(li);
+                });
+            }
+
+            const anglesContainer = document.getElementById("idea-traffic-angles");
+            anglesContainer.innerHTML = "";
+            if (bp.traffic_strategy?.creative_angles) {
+                bp.traffic_strategy.creative_angles.forEach(angle => {
+                    const div = document.createElement("div");
+                    div.className = "bg-black/20 p-3 rounded-lg border border-white/5";
+                    div.innerHTML = `
+                        <div class="text-xs font-bold text-white/80 mb-1">${angle.angle}</div>
+                        <div class="text-[10px] text-white/50 italic">"${angle.message_core}"</div>
+                    `;
+                    anglesContainer.appendChild(div);
+                });
+            }
+
+            // 5. Monetization
+            const monetizationText = bp.monetization_model
+                ? `<strong>Revenue Type:</strong> ${bp.monetization_model.revenue_type}<br><br><strong>Upsells:</strong><br>${bp.monetization_model.upsells?.join('<br>') || 'N/A'}`
+                : "N/A";
+            document.getElementById("idea-monetization").innerHTML = monetizationText;
+
+            // Scroll to results
+            setTimeout(() => {
+                resultsContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 500);
+
+        } else {
+            alert("Could not generate a valid blueprint from the response.");
+        }
+
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.log("Idea request aborted");
+        } else {
+            console.error(error);
+            alert("An error occurred during generation.");
+        }
+    } finally {
+        if (loadingOverlay) loadingOverlay.classList.add("hidden");
+        btn.disabled = false;
+        ideaController = null;
     }
 }
 

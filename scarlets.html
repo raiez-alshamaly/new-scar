@@ -281,6 +281,33 @@
                     </div>
                 </div>
 
+                <!-- Tool 3: Idea 2 Funnel -->
+                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+                    onclick="openModal('idea-funnel')">
+                    <div
+                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <iconify-icon icon="solar:arrow-right-up-linear"
+                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
+                            width="24"></iconify-icon>
+                    </div>
+
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <iconify-icon icon="solar:lightbulb-bolt-bold-duotone" width="32"
+                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-3 text-white">Idea 2 Funnel</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Transform raw ideas into complete sales
+                        funnels
+                        instantly with AI.</p>
+
+                    <div
+                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
+                        <span>Launch App</span>
+                    </div>
+                </div>
+
 
             </div>
         </div>
@@ -307,10 +334,10 @@
                 <div
                     class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
                     <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
-                        <iconify-icon icon="solar:lightbulb-bolt-bold-duotone" width="24"></iconify-icon>
+                        <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="24"></iconify-icon>
                     </div>
-                    <h3 class="text-lg font-bold mb-2 text-white/50">Idea 2 Funnel</h3>
-                    <p class="text-xs text-white/30">Transform raw ideas into complete sales funnels instantly.</p>
+                    <h3 class="text-lg font-bold mb-2 text-white/50">AI Generate</h3>
+                    <p class="text-xs text-white/30">Generate full assets from text prompts.</p>
                 </div>
             </div>
         </div>
@@ -615,6 +642,207 @@
                     <button onclick="cancelOperation('seo')"
                         class="px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold transition-colors flex items-center gap-2">
                         <iconify-icon icon="solar:close-circle-bold"></iconify-icon> Cancel Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Idea 2 Funnel Modal -->
+        <div id="modal-idea-funnel"
+            class="modal-content hidden relative bg-[#111] border border-white/10 rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl shadow-[#7600FF]/20">
+            <!-- Header -->
+            <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#161616]">
+                <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                    <iconify-icon icon="solar:lightbulb-bolt-bold-duotone" class="text-[#7600FF]"></iconify-icon>
+                    Idea 2 Funnel
+                </h3>
+                <button onclick="closeModal()" class="text-white/60 hover:text-white transition-colors">
+                    <iconify-icon icon="solar:close-circle-bold" width="24"></iconify-icon>
+                </button>
+            </div>
+
+            <div class="relative flex-1 overflow-hidden min-h-[500px] flex flex-col">
+                <div id="idea-content" class="p-4 md:p-6 flex-1 overflow-y-auto custom-scrollbar bg-[#0a0a0a]">
+                    <!-- Input Area -->
+                    <div class="space-y-6 mb-8">
+                        <!-- Main Idea -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Business Idea /
+                                Description</label>
+                            <textarea id="idea-text" rows="3"
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors resize-none"
+                                placeholder="e.g. A premium online platform that helps small local gyms generate automated client funnels..."></textarea>
+                        </div>
+
+                        <!-- Context Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="space-y-2">
+                                <label
+                                    class="text-xs font-bold text-white/50 uppercase tracking-widest">Industry</label>
+                                <input type="text" id="idea-industry" placeholder="e.g. Fitness"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Target
+                                    Market</label>
+                                <input type="text" id="idea-market" placeholder="e.g. MENA"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Budget</label>
+                                <select id="idea-budget"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors appearance-none">
+                                    <option value="low">Low</option>
+                                    <option value="mid" selected>Mid</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Goal</label>
+                                <select id="idea-goal"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors appearance-none">
+                                    <option value="lead_generation" selected>Lead Gen</option>
+                                    <option value="sales">Sales</option>
+                                    <option value="branding">Branding</option>
+                                    <option value="growth">Growth</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="runIdea2Funnel()" id="idea-btn"
+                        class="w-full bg-[#7600FF] hover:bg-[#6000d0] text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(118,0,255,0.3)] hover:shadow-[0_0_30px_rgba(118,0,255,0.5)] flex justify-center items-center gap-2 mb-8">
+                        <span>Generate Blueprint</span>
+                        <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="20"></iconify-icon>
+                    </button>
+
+                    <!-- Results Area -->
+                    <div id="idea-results"
+                        class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-8">
+
+                        <!-- 1. Executive Summary -->
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="md:col-span-2 space-y-4">
+                                <h4
+                                    class="text-sm font-bold text-[#7600FF] uppercase tracking-widest flex items-center gap-2">
+                                    <iconify-icon icon="solar:flag-bold-duotone"></iconify-icon> Project Summary
+                                </h4>
+                                <div class="bg-[#161616] border border-white/10 rounded-2xl p-6">
+                                    <h3 id="idea-core" class="text-xl font-bold text-white mb-2"></h3>
+                                    <p id="idea-positioning" class="text-white/60 text-sm leading-relaxed"></p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <h4
+                                    class="text-sm font-bold text-[#7600FF] uppercase tracking-widest flex items-center gap-2">
+                                    <iconify-icon icon="solar:users-group-rounded-bold-duotone"></iconify-icon> Target
+                                    Avatar
+                                </h4>
+                                <div class="bg-[#161616] border border-white/10 rounded-2xl p-6 h-full">
+                                    <p id="idea-avatar" class="text-white/70 text-xs leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Offer & Value -->
+                        <div class="bg-[#111] border border-white/10 rounded-2xl overflow-hidden">
+                            <div
+                                class="bg-[#161616] px-6 py-4 border-b border-white/10 flex justify-between items-center">
+                                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                                    <iconify-icon icon="solar:box-minimalistic-bold-duotone"
+                                        class="text-[#7600FF]"></iconify-icon>
+                                    Offer Engineering
+                                </h4>
+                            </div>
+                            <div class="p-6 grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h5 class="text-xs font-bold text-white/40 uppercase mb-2">Main Offer</h5>
+                                    <p id="idea-offer-main" class="text-white font-medium mb-4"></p>
+
+                                    <h5 class="text-xs font-bold text-white/40 uppercase mb-2">Pricing Strategy</h5>
+                                    <p id="idea-offer-price" class="text-white/70 text-sm mb-4"></p>
+
+                                    <h5 class="text-xs font-bold text-white/40 uppercase mb-2">Risk Reversal</h5>
+                                    <p id="idea-offer-risk"
+                                        class="text-[#7600FF] text-sm font-bold bg-[#7600FF]/10 p-3 rounded-lg">
+                                    </p>
+                                </div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-white/40 uppercase mb-2">Value Stack</h5>
+                                    <ul id="idea-offer-stack" class="space-y-2 text-sm text-white/60"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Funnel Steps -->
+                        <div>
+                            <h4
+                                class="text-sm font-bold text-[#7600FF] uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <iconify-icon icon="solar:sort-from-top-to-bottom-bold-duotone"></iconify-icon> Funnel
+                                Architecture
+                            </h4>
+                            <div class="space-y-4" id="idea-funnel-steps"></div>
+                        </div>
+
+                        <!-- 4. Traffic & Angles -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-[#161616] border border-white/10 rounded-2xl p-6">
+                                <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                                    <iconify-icon icon="solar:rocket-2-bold-duotone"
+                                        class="text-[#7600FF]"></iconify-icon>
+                                    Traffic Channels
+                                </h4>
+                                <ul id="idea-traffic-channels" class="space-y-2"></ul>
+                            </div>
+                            <div class="bg-[#161616] border border-white/10 rounded-2xl p-6">
+                                <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                                    <iconify-icon icon="solar:megaphone-bold-duotone"
+                                        class="text-[#7600FF]"></iconify-icon>
+                                    Creative Angles
+                                </h4>
+                                <div id="idea-traffic-angles" class="space-y-3"></div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Monetization & Metrics (Optional but good) -->
+                        <div class="bg-[#161616] border border-white/10 rounded-2xl p-6">
+                            <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                                <iconify-icon icon="solar:chart-square-bold-duotone"
+                                    class="text-[#7600FF]"></iconify-icon>
+                                Monetization Model
+                            </h4>
+                            <p id="idea-monetization" class="text-white/60 text-sm leading-relaxed"></p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Loading Overlay -->
+                <div id="idea-loading"
+                    class="absolute inset-0 bg-[#0a0a0a] z-50 hidden flex flex-col items-center justify-center p-8 text-center bg-opacity-95 backdrop-blur-sm">
+                    <div class="loader-logo-wrapper mb-6 animate-pulse">
+                        <svg viewBox="0 0 203 169"
+                            class="w-16 h-16 md:w-24 md:h-24 mx-auto drop-shadow-[0_0_15px_rgba(118,0,255,0.5)]">
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M6.3 41L38.67 8.63V42.56L0 81.24V56.22C0 50.51 2.27 45.04 6.3 41Z"></path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M163.83 119.91L202.5 81.24V105.79C202.5 111.79 200.12 117.55 195.88 121.79L163.83 153.84V137.07L132.1 168.8H70.4099L38.6799 137.07V82.16L101.25 144.74L163.83 82.16V119.91Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M0 108.43V81.24L38.67 119.91V153.84L4.76 119.93C1.71 116.88 0 112.74 0 108.43Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M202.5 56.22V81.24L163.83 42.56V79.98L101.25 17.4L38.6799 79.98V25.07L63.7499 0H138.76L163.83 25.07V8.63L196.2 41C200.24 45.04 202.5 50.51 202.5 56.22Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Generating Blueprint...</h4>
+                    <p class="text-white/50 text-sm max-w-md mb-8">AI is architecting your funnel. This may take <span
+                            class="text-[#7600FF]">1 to 3 minutes</span>. Please do not close the tab.</p>
+
+                    <button onclick="cancelOperation('idea')"
+                        class="px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold transition-colors flex items-center gap-2">
+                        <iconify-icon icon="solar:close-circle-bold"></iconify-icon> Cancel Generation
                     </button>
                 </div>
             </div>
