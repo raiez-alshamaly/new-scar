@@ -92,19 +92,22 @@ document.querySelectorAll("img, a").forEach(el => {
 });
 
 // Staggered Team Card Animation
-gsap.set(".team-card", { y: 50, opacity: 0 });
-ScrollTrigger.batch(".team-card", {
-  interval: 0.1,
-  batchMax: 4,
-  onEnter: batch => gsap.to(batch, {
-    opacity: 1,
-    y: 0,
-    stagger: 0.15,
-    overwrite: true,
-    ease: "power2.out",
-    duration: 0.8
-  }),
-});
+const teamCards = document.querySelectorAll(".team-card");
+if (teamCards && teamCards.length > 0) {
+  gsap.set(teamCards, { y: 50, opacity: 0 });
+  ScrollTrigger.batch(teamCards, {
+    interval: 0.1,
+    batchMax: 4,
+    onEnter: batch => gsap.to(batch, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.15,
+      overwrite: true,
+      ease: "power2.out",
+      duration: 0.8
+    }),
+  });
+}
 
 // Refresh ScrollTrigger on Load
 window.addEventListener("load", () => {

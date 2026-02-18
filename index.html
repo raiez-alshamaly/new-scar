@@ -25,6 +25,9 @@
   <!-- Custom Loader CSS -->
   <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/loaders/loader.css">
 
+  <!-- BRAND TYPOGRAPHY -->
+  <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/brand-typography.css">
+
   <style>
     :root {
       --color-primary: #7600FF;
@@ -35,7 +38,8 @@
     body {
       background-color: var(--color-dark);
       color: #ffffff;
-      font-family: system-ui, -apple-system, sans-serif;
+      /* Default font is Montserrat */
+      font-family: 'Montserrat', sans-serif !important;
       overflow-x: hidden;
 
       /* Disable Text Selection & Dragging */
@@ -62,25 +66,25 @@
       position: sticky;
       top: 0;
       width: 100%;
-      /* Allow auto height for content */
-      /* min-height: 100vh; -- REMOVED to allow ScrollTo to work better, handled by JS 'top' logic */
       min-height: 100vh;
-
       overflow: visible;
-      /* changed from hidden to visible */
       transform-origin: center top;
       box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
       background-color: var(--color-dark);
       z-index: 1;
-      /* Base z-index */
-
-      /* Optimize Rendering */
       will-change: transform;
-
-      /* Flex center by default for card feel */
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+
+    /* On mobile, allow sections to grow beyond viewport */
+    @media (max-width: 767px) {
+      .stack-section {
+        min-height: auto;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
     }
 
     /* Ensure following sections are higher z-index automatically by DOM order, 
@@ -169,11 +173,14 @@
 
   <!-- ==================== HEADER ==================== -->
   <header
-    class="fixed top-0 left-0 w-full z-[100] px-6 py-6 mix-blend-difference text-white transition-opacity duration-700 opacity-0"
+    class="fixed top-0 left-0 w-full z-[110] px-6 py-6 mix-blend-difference text-white transition-opacity duration-700 opacity-0"
     id="main-header">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="#" class="font-bold text-xl tracking-tighter hover:text-[#7600FF] transition-colors">SCARLET ROYAL</a>
+      <a href="#"
+        class="font-bold text-xl tracking-tighter hover:text-[#7600FF] transition-colors relative z-[110]">SCARLET
+        ROYAL</a>
 
+      <!-- Desktop Navigation -->
       <nav class="hidden md:flex gap-8 text-sm font-medium tracking-widest uppercase">
         <a href="#about" class="nav-link hover:text-[#7600FF] transition-colors">About</a>
         <a href="#services" class="nav-link hover:text-[#7600FF] transition-colors">Services</a>
@@ -184,12 +191,49 @@
         <a href="#contact" class="nav-link hover:text-[#7600FF] transition-colors">Contact</a>
       </nav>
 
+      <!-- Desktop CTA -->
       <a href="#contact"
-        class="border border-white/20 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+        class="hidden md:inline-block border border-white/20 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+        Let's Talk
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-white z-[110] relative focus:outline-none">
+        <iconify-icon icon="solar:hamburger-menu-linear" width="32" id="menu-icon"></iconify-icon>
+      </button>
+    </div>
+
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu"
+    class="fixed inset-0 bg-[#141414] z-[105] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+    <nav class="flex flex-col gap-8 text-center">
+      <a href="#about"
+        class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+        onclick="toggleMobileMenu()">About</a>
+      <a href="#services"
+        class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+        onclick="toggleMobileMenu()">Services</a>
+      <a href="#portfolio"
+        class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+        onclick="toggleMobileMenu()">Work</a>
+      <a href="scarlets.html"
+        class="mobile-nav-link text-3xl font-bold tracking-tighter text-[#7600FF] transition-colors">Scarlets</a>
+      <a href="#team" class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+        onclick="toggleMobileMenu()">Team</a>
+      <a href="#contact"
+        class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+        onclick="toggleMobileMenu()">Contact</a>
+    </nav>
+
+    <div class="mt-12">
+      <a href="#contact" onclick="toggleMobileMenu()"
+        class="border border-white/20 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
         Let's Talk
       </a>
     </div>
-  </header>
+  </div>
 
   <!-- ==================== HERO SECTION (1) ==================== -->
   <section id="hero" class="stack-section relative flex items-center justify-center  bg-[#141414] h-[100dvh]">
@@ -222,14 +266,15 @@
 
 
   <!-- ==================== ABOUT SECTION (2) ==================== -->
-  <section id="about" class="stack-section bg-[#141414] py-12 md:py-24 flex items-center">
+  <section id="about" class="stack-section bg-[#141414] py-16 md:py-24 flex items-center">
     <div class="max-w-7xl mx-auto px-6 w-full">
       <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-4 uppercase anim-about-label">Who We
         Are</span>
 
       <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
         <div>
-          <h2 class="anim-about-title text-4xl md:text-7xl font-bold leading-tight mb-6 md:mb-8 perspective-text">
+          <h2
+            class="anim-about-title text-3xl sm:text-4xl md:text-7xl font-bold leading-tight mb-6 md:mb-8 perspective-text">
             No Branding, <br>
             <span class="text-[#7600FF]">Just Background.</span>
           </h2>
@@ -277,13 +322,13 @@
 
 
   <!-- ==================== SERVICES SECTION (3) ==================== -->
-  <section id="services" class="stack-section bg-[#181818] py-24 flex items-center border-t border-white/5">
+  <section id="services" class="stack-section bg-[#181818] py-16 md:py-24 flex items-center border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 w-full">
       <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-12 uppercase">Our Expertise</span>
 
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Service 1 -->
-        <div class="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+        <div class="group p-6 md:p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
           <iconify-icon icon="solar:pen-new-square-linear" width="48" class="text-[#7600FF] mb-6"></iconify-icon>
           <h3 class="text-2xl font-bold mb-4">Branding</h3>
           <ul class="text-white/60 space-y-2 text-sm">
@@ -295,7 +340,7 @@
         </div>
 
         <!-- Service 2 -->
-        <div class="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+        <div class="group p-6 md:p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
           <iconify-icon icon="solar:monitor-smartphone-linear" width="48" class="text-[#7600FF] mb-6"></iconify-icon>
           <h3 class="text-2xl font-bold mb-4">Web & Digital</h3>
           <ul class="text-white/60 space-y-2 text-sm">
@@ -307,7 +352,7 @@
         </div>
 
         <!-- Service 3 -->
-        <div class="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+        <div class="group p-6 md:p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
           <iconify-icon icon="ph:megaphone-simple" width="48" class="text-[#7600FF] mb-6"></iconify-icon>
           <h3 class="text-2xl font-bold mb-4">Marketing</h3>
           <ul class="text-white/60 space-y-2 text-sm">
@@ -322,13 +367,17 @@
   </section>
 
 
+
+
+
+
   <!-- ==================== TEAM SECTION (4) ==================== -->
-  <section id="team" class="stack-section bg-[#141414] py-24 flex items-center border-t border-white/5">
+  <section id="team" class="stack-section bg-[#141414] py-16 md:py-24 flex items-center border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center">
-      <div class="flex justify-between items-end mb-16">
+      <div class="flex justify-between items-end mb-8 md:mb-16">
         <div>
           <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-4 uppercase">The Visionaries</span>
-          <h2 class="text-5xl md:text-6xl font-bold">Behind the <br> Magic</h2>
+          <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold">Behind the <br> Magic</h2>
         </div>
         <a href="#contact"
           class="hidden md:inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-[#7600FF] transition-colors">
@@ -338,11 +387,11 @@
       </div>
 
       <!-- Pro Team Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
         <!-- Member 1 -->
         <div
-          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          class="team-card group relative h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
           onclick="">
           <img src="old_theme/theme_three/assets/img/team/1.webp" alt="Team Member"
             class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
@@ -351,15 +400,15 @@
             class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
           </div>
 
-          <div class="absolute bottom-0 left-0 w-full p-6">
-            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Creative Lead</p>
-            <h3 class="text-2xl font-bold text-white">Brand Architect</h3>
+          <div class="absolute bottom-0 left-0 w-full p-4 md:p-6">
+            <p class="mb-1 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#7600FF]">Creative Lead</p>
+            <h3 class="text-lg md:text-2xl font-bold text-white">Brand Architect</h3>
           </div>
         </div>
 
         <!-- Member 2 -->
         <div
-          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          class="team-card group relative h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
           onclick="">
           <img src="old_theme/theme_three/assets/img/team/4.webp" alt="Team Member"
             class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
@@ -368,15 +417,15 @@
             class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
           </div>
 
-          <div class="absolute bottom-0 left-0 w-full p-6">
-            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Tech Lead</p>
-            <h3 class="text-2xl font-bold text-white">Digital Wizard</h3>
+          <div class="absolute bottom-0 left-0 w-full p-4 md:p-6">
+            <p class="mb-1 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#7600FF]">Tech Lead</p>
+            <h3 class="text-lg md:text-2xl font-bold text-white">Digital Wizard</h3>
           </div>
         </div>
 
         <!-- Member 3 -->
         <div
-          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          class="team-card group relative h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
           onclick="">
           <img src="old_theme/theme_three/assets/img/team/3.webp" alt="Team Member"
             class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
@@ -385,15 +434,15 @@
             class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
           </div>
 
-          <div class="absolute bottom-0 left-0 w-full p-6">
-            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Strategist</p>
-            <h3 class="text-2xl font-bold text-white">Growth Hacker</h3>
+          <div class="absolute bottom-0 left-0 w-full p-4 md:p-6">
+            <p class="mb-1 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#7600FF]">Strategist</p>
+            <h3 class="text-lg md:text-2xl font-bold text-white">Growth Hacker</h3>
           </div>
         </div>
 
         <!-- Member 4 -->
         <div
-          class="team-card group relative h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
+          class="team-card group relative h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] w-full cursor-pointer overflow-hidden rounded-2xl bg-white/5 transition-all duration-500"
           onclick="">
           <img src="old_theme/theme_three/assets/img/team/2.webp" alt="Team Member"
             class="h-full w-full object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
@@ -402,9 +451,9 @@
             class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500">
           </div>
 
-          <div class="absolute bottom-0 left-0 w-full p-6">
-            <p class="mb-1 text-xs font-bold uppercase tracking-widest text-[#7600FF]">Designer</p>
-            <h3 class="text-2xl font-bold text-white">Pixel Artist</h3>
+          <div class="absolute bottom-0 left-0 w-full p-4 md:p-6">
+            <p class="mb-1 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#7600FF]">Designer</p>
+            <h3 class="text-lg md:text-2xl font-bold text-white">Pixel Artist</h3>
           </div>
         </div>
 
@@ -413,7 +462,7 @@
   </section>
 
   <!-- ==================== TEAM VIDEOS SECTION ==================== -->
-  <section id="team-videos" class="stack-section bg-[#141414] py-24 flex items-center border-t border-white/5">
+  <section id="team-videos" class="stack-section bg-[#141414] py-16 md:py-24 flex items-center border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center">
 
       <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
@@ -421,7 +470,7 @@
         <!-- Section Header -->
         <div class="w-full lg:w-3/12 shrink-0">
           <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-4 uppercase">The Cast</span>
-          <h2 class="text-5xl md:text-6xl font-bold leading-none mb-8">Meet The<br><span
+          <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold leading-none mb-8">Meet The<br><span
               class="text-white/50">Creators</span></h2>
           <div class="hidden lg:block animate-bounce mt-8">
             <iconify-icon icon="solar:arrow-right-down-linear" width="48" class="text-white/40"></iconify-icon>
@@ -433,7 +482,7 @@
 
           <!-- Founder Column (Left - Large) -->
           <div
-            class="group relative overflow-hidden rounded-2xl aspect-[9/16] md:aspect-[3/4] md:row-span-2 cursor-pointer border border-white/10"
+            class="group relative overflow-hidden rounded-2xl aspect-[4/5] sm:aspect-[9/16] md:aspect-[3/4] md:row-span-2 cursor-pointer border border-white/10"
             onclick="openVideoModal('old_theme/theme_three/assets/videos/Founder.mp4', 'Founder')">
             <video src="old_theme/theme_three/assets/videos/Founder.mp4" autoplay muted loop playsinline
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></video>
@@ -533,7 +582,7 @@
           class="h-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center px-4 pb-4 pt-32 md:p-12 relative bg-[#0e0e0e] border-r border-white/5">
           <!-- Facebook Profile Card -->
           <div data-id="10" onclick="openProjectModal('modal-10')"
-            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[65vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
+            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[75vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
 
             <!-- Cover Photo (Video) -->
             <div class="h-[38%] md:h-[60%] w-full relative overflow-hidden bg-black">
@@ -545,7 +594,7 @@
             </div>
 
             <!-- Profile Info Bar -->
-            <div class="relative h-[62%] md:h-[40%] px-5 md:px-12 pb-6 flex flex-col pt-16 md:pt-28">
+            <div class="relative h-[55%] md:h-[40%] px-4 sm:px-5 md:px-12 pb-4 md:pb-6 flex flex-col pt-14 md:pt-28">
               <!-- Profile Picture (Logo) -->
               <div
                 class="absolute -top-12 md:-top-16 left-8 md:left-12 w-24 h-24 md:w-40 md:h-40 rounded-full bg-[#141414] border-[6px] border-white/20 overflow-hidden shadow-lg z-10 group-hover:scale-110 transition-transform duration-500">
@@ -557,7 +606,7 @@
               <!-- Text Content -->
               <div class="flex justify-between items-start mb-6 align-end">
                 <div>
-                  <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Rabdan Line</h2>
+                  <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">Rabdan Line</h2>
                   <div class="flex gap-3 text-sm text-white/60">
                     <span class="font-bold text-[#7600FF]">Fashion</span>
                     <span>•</span>
@@ -597,7 +646,7 @@
         <div
           class="h-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center px-4 pb-4 pt-32 md:p-12 relative bg-[#0e0e0e] border-r border-white/5">
           <div data-id="17" onclick="openProjectModal('modal-17')"
-            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[65vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
+            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[75vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
 
             <div class="h-[38%] md:h-[60%] w-full relative overflow-hidden bg-black">
               <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img2.png"
@@ -606,7 +655,7 @@
               </div>
             </div>
 
-            <div class="relative h-[62%] md:h-[40%] px-5 md:px-12 pb-6 flex flex-col pt-16 md:pt-28">
+            <div class="relative h-[55%] md:h-[40%] px-4 sm:px-5 md:px-12 pb-4 md:pb-6 flex flex-col pt-14 md:pt-28">
               <div
                 class="absolute -top-12 md:-top-16 left-8 md:left-12 w-24 h-24 md:w-40 md:h-40 rounded-full bg-[#141414] border-[6px] border-white/20 overflow-hidden shadow-lg z-10 group-hover:scale-110 transition-transform duration-500">
                 <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/logo.png"
@@ -616,7 +665,7 @@
 
               <div class="flex justify-between items-start mb-6 align-end">
                 <div>
-                  <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Kingdom Design</h2>
+                  <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">Kingdom Design</h2>
                   <div class="flex gap-3 text-sm text-white/60">
                     <span class="font-bold text-[#7600FF]">Construction</span>
                     <span>•</span>
@@ -653,7 +702,7 @@
         <div
           class="h-scroll-slide w-screen h-full flex-shrink-0 flex items-center justify-center px-4 pb-4 pt-32 md:p-12 relative bg-[#0e0e0e] border-r border-white/5">
           <div data-id="15" onclick="openProjectModal('modal-15')"
-            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[65vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
+            class="w-full max-w-5xl bg-[#141414] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative flex flex-col h-[75vh] md:h-[85vh] cursor-pointer group hover:border-[#7600FF]/50 transition-colors duration-500">
 
             <div class="h-[38%] md:h-[60%] w-full relative overflow-hidden bg-black">
               <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/aimg2.png"
@@ -663,7 +712,7 @@
               </div>
             </div>
 
-            <div class="relative h-[62%] md:h-[40%] px-5 md:px-12 pb-6 flex flex-col pt-16 md:pt-28">
+            <div class="relative h-[55%] md:h-[40%] px-4 sm:px-5 md:px-12 pb-4 md:pb-6 flex flex-col pt-14 md:pt-28">
               <div
                 class="absolute -top-12 md:-top-16 left-8 md:left-12 w-24 h-24 md:w-40 md:h-40 rounded-full bg-[#141414] border-[6px] border-white/20 overflow-hidden shadow-lg z-10 group-hover:scale-110 transition-transform duration-500">
                 <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/logo.png"
@@ -673,7 +722,7 @@
 
               <div class="flex justify-between items-start mb-6 align-end">
                 <div>
-                  <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Himaya</h2>
+                  <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">Himaya</h2>
                   <div class="flex gap-3 text-sm text-white/60">
                     <span class="font-bold text-[#7600FF]">Insurance</span>
                     <span>•</span>
@@ -737,13 +786,14 @@
 
   <!-- ==================== CONTACT SECTION (6) ==================== -->
   <section id="contact"
-    class="stack-section bg-gradient-to-b from-[#141414] to-black py-24 flex flex-col items-center justify-between min-h-screen h-auto md:h-screen">
+    class="stack-section bg-gradient-to-b from-[#141414] to-black py-16 md:py-24 flex flex-col items-center justify-between min-h-screen h-auto">
 
     <!-- Contact Content -->
     <div class="max-w-4xl mx-auto px-6 text-center flex-grow flex flex-col justify-center">
       <span class="block text-xs font-bold tracking-[0.2em] text-[#7600FF] mb-6 uppercase anim-contact-label">Get In
         Touch</span>
-      <h2 class="anim-contact-heading text-6xl md:text-8xl font-bold mb-12 tracking-tighter perspective-text">
+      <h2
+        class="anim-contact-heading text-4xl sm:text-6xl md:text-8xl font-bold mb-8 md:mb-12 tracking-tighter perspective-text">
         Ready to <br> create <br>
         <span class="text-outline font-outline text-white">Something Real?</span>
       </h2>
@@ -817,7 +867,7 @@
         </div>
 
         <!-- Contact & Location -->
-        <div class="grid md:grid-cols-4 gap-8 mb-12 border-t border-white/10 pt-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 border-t border-white/10 pt-12">
           <div class="md:col-span-1">
             <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/icons/logo.svg" alt="Scarlet Royal"
               class="h-10 opacity-50 mb-4">
@@ -1277,318 +1327,373 @@
     }
   </script>
 
-</body>
 
-</body>
-<!-- ==================== PROJECT POPUPS ==================== -->
+  <!-- ==================== PROJECT POPUPS ==================== -->
 
-<!-- Modal 10: Rabdan Line -->
-<div id="modal-10" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
-  <div class="relative min-h-screen py-20 px-4 md:px-10">
-    <!-- Close Button -->
-    <button onclick="closeProjectModal('modal-10')"
-      class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
-      <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
-    </button>
+  <!-- Modal 10: Rabdan Line -->
+  <div id="modal-10" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
+    <div class="relative min-h-screen py-20 px-4 md:px-10">
+      <!-- Close Button -->
+      <button onclick="closeProjectModal('modal-10')"
+        class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+        <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
+      </button>
 
-    <div class="max-w-6xl mx-auto space-y-16">
-      <!-- Header -->
-      <div class="text-center animate-modal-up">
-        <span
-          class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Fashion</span>
-        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Rabdan Line</h1>
-        <p class="text-white/60 max-w-2xl mx-auto text-lg">Crafting Strength, Defining Style.</p>
-      </div>
-
-      <!-- Hero Media -->
-      <div
-        class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
-        <video src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img2.mp4"
-          class="w-full h-full object-cover" controls autoplay muted loop></video>
-      </div>
-
-      <!-- Info Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
-          <p class="text-white/80">Fashion</p>
+      <div class="max-w-6xl mx-auto space-y-16">
+        <!-- Header -->
+        <div class="text-center animate-modal-up">
+          <span
+            class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Fashion</span>
+          <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Rabdan Line</h1>
+          <p class="text-white/60 max-w-2xl mx-auto text-lg">Crafting Strength, Defining Style.</p>
         </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
-          <p class="text-white/80">United Arab Emirates</p>
-        </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Client</h4>
-          <p class="text-white/80">Khayal Company</p>
-        </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
-          <p class="text-white/80">300+</p>
-        </div>
-      </div>
 
-      <!-- Narrative -->
-      <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
-        <div class="space-y-6">
-          <h3 class="text-2xl font-bold text-white">The Challenge</h3>
-          <p class="text-white/60 leading-relaxed text-lg">
-            Due to the widespread use of the name in the UAE across various fields, Rabdan has struggled to establish
-            itself as a clear and distinct brand. In this case, the strength of the brand's visibility lies in the
-            simplicity of ensuring that the branding process has been academically and professionally prepared,
-            especially since the brand primarily offers one type of product (Sudairi).
-          </p>
+        <!-- Hero Media -->
+        <div
+          class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
+          <video src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img2.mp4"
+            class="w-full h-full object-cover" controls autoplay muted loop></video>
         </div>
-        <div class="space-y-6">
-          <h3 class="text-2xl font-bold text-white">Our Solution</h3>
-          <p class="text-white/60 leading-relaxed text-lg">
-            After we completed the rebranding process for Rabdan Line, following a thorough case study, we created a
-            professional and academically grounded website to showcase Rabdan Line’s products. We also developed a
-            unique slogan for them: "Crafting Strength, Defining Style."
-          </p>
-          <p class="text-white/60 leading-relaxed text-lg">
-            The Rabdan Line logo features an Arabian horse, symbolizing strength and elegance, crafted from lines that
-            reflect the brand’s name. The red and green colors, inspired by the UAE flag, highlight the brand’s cultural
-            roots.
-          </p>
-        </div>
-      </div>
 
-      <!-- Gallery -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
-        <div class="group relative rounded-xl overflow-hidden aspect-square border border-white/10">
-          <span class="absolute top-2 left-2 bg-black/80 text-white text-[10px] px-2 py-1 rounded">Before</span>
-          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box1.png"
+        <!-- Info Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
+            <p class="text-white/80">Fashion</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
+            <p class="text-white/80">United Arab Emirates</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Client</h4>
+            <p class="text-white/80">Khayal Company</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
+            <p class="text-white/80">300+</p>
+          </div>
+        </div>
+
+        <!-- Narrative -->
+        <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white">The Challenge</h3>
+            <p class="text-white/60 leading-relaxed text-lg">
+              Due to the widespread use of the name in the UAE across various fields, Rabdan has struggled to establish
+              itself as a clear and distinct brand. In this case, the strength of the brand's visibility lies in the
+              simplicity of ensuring that the branding process has been academically and professionally prepared,
+              especially since the brand primarily offers one type of product (Sudairi).
+            </p>
+          </div>
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white">Our Solution</h3>
+            <p class="text-white/60 leading-relaxed text-lg">
+              After we completed the rebranding process for Rabdan Line, following a thorough case study, we created a
+              professional and academically grounded website to showcase Rabdan Line’s products. We also developed a
+              unique slogan for them: "Crafting Strength, Defining Style."
+            </p>
+            <p class="text-white/60 leading-relaxed text-lg">
+              The Rabdan Line logo features an Arabian horse, symbolizing strength and elegance, crafted from lines that
+              reflect the brand’s name. The red and green colors, inspired by the UAE flag, highlight the brand’s
+              cultural
+              roots.
+            </p>
+          </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
+          <div class="group relative rounded-xl overflow-hidden aspect-square border border-white/10">
+            <span class="absolute top-2 left-2 bg-black/80 text-white text-[10px] px-2 py-1 rounded">Before</span>
+            <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box1.png"
+              class="w-full h-full object-cover">
+          </div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box2.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box3.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box4.png"
+              class="w-full h-full object-cover"></div>
+        </div>
+
+        <!-- Footer Image -->
+        <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
+          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img1.png"
             class="w-full h-full object-cover">
         </div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box2.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box3.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/box4.png"
-            class="w-full h-full object-cover"></div>
-      </div>
-
-      <!-- Footer Image -->
-      <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
-        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/10/img1.png"
-          class="w-full h-full object-cover">
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modal 17: Kingdom Design -->
-<div id="modal-17" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
-  <div class="relative min-h-screen py-20 px-4 md:px-10">
-    <button onclick="closeProjectModal('modal-17')"
-      class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
-      <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
-    </button>
+  <!-- Modal 17: Kingdom Design -->
+  <div id="modal-17" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
+    <div class="relative min-h-screen py-20 px-4 md:px-10">
+      <button onclick="closeProjectModal('modal-17')"
+        class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+        <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
+      </button>
 
-    <div class="max-w-6xl mx-auto space-y-16">
-      <div class="text-center animate-modal-up">
-        <span
-          class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Construction</span>
-        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Kingdom Design LTD</h1>
-        <p class="text-white/60 max-w-2xl mx-auto text-lg">Built with Purpose. Crafted for Impact.</p>
-      </div>
-
-      <div
-        class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
-        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img2.png"
-          class="w-full h-full object-cover">
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
-          <p class="text-white/80">Construction</p>
+      <div class="max-w-6xl mx-auto space-y-16">
+        <div class="text-center animate-modal-up">
+          <span
+            class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Construction</span>
+          <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Kingdom Design LTD</h1>
+          <p class="text-white/60 max-w-2xl mx-auto text-lg">Built with Purpose. Crafted for Impact.</p>
         </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
-          <p class="text-white/80">Saudi Arabia</p>
-        </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Service</h4>
-          <p class="text-white/80">Rebranding</p>
-        </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
-          <p class="text-white/80">320+</p>
-        </div>
-      </div>
 
-      <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
-        <div class="space-y-6">
-          <h3 class="text-2xl font-bold text-white">The Challenge</h3>
-          <p class="text-white/60 leading-relaxed text-lg">
-            The company needed to differentiate in a competitive market where construction firms often relied on generic
-            branding. It had to communicate both modern sophistication and the timeless qualities of trust and
-            reliability.
-          </p>
+        <div
+          class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
+          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img2.png"
+            class="w-full h-full object-cover">
         </div>
-        <div class="space-y-6">
-          <h3 class="text-2xl font-bold text-white">Our Solution</h3>
-          <p class="text-white/60 leading-relaxed text-lg">
-            A bold geometric logo, a refined gold-and-black palette, and clear typography established a premium,
-            professional presence. Warm yet confident messaging and supporting visual elements unified the identity
-            under the tagline "Built with Purpose. Crafted for Impact."
-          </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
+            <p class="text-white/80">Construction</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
+            <p class="text-white/80">Saudi Arabia</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Service</h4>
+            <p class="text-white/80">Rebranding</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
+            <p class="text-white/80">320+</p>
+          </div>
         </div>
-      </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box1.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box2.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box3.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box4.png"
-            class="w-full h-full object-cover"></div>
-      </div>
+        <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white">The Challenge</h3>
+            <p class="text-white/60 leading-relaxed text-lg">
+              The company needed to differentiate in a competitive market where construction firms often relied on
+              generic
+              branding. It had to communicate both modern sophistication and the timeless qualities of trust and
+              reliability.
+            </p>
+          </div>
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white">Our Solution</h3>
+            <p class="text-white/60 leading-relaxed text-lg">
+              A bold geometric logo, a refined gold-and-black palette, and clear typography established a premium,
+              professional presence. Warm yet confident messaging and supporting visual elements unified the identity
+              under the tagline "Built with Purpose. Crafted for Impact."
+            </p>
+          </div>
+        </div>
 
-      <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
-        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img1.png"
-          class="w-full h-full object-cover">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box1.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box2.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box3.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/box4.png"
+              class="w-full h-full object-cover"></div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
+          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/17/img1.png"
+            class="w-full h-full object-cover">
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modal 15: Himaya -->
-<div id="modal-15" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
-  <div class="relative min-h-screen py-20 px-4 md:px-10">
-    <button onclick="closeProjectModal('modal-15')"
-      class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
-      <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
-    </button>
+  <!-- Modal 15: Himaya -->
+  <div id="modal-15" class="project-modal fixed inset-0 z-[100] bg-[#000000] hidden overflow-y-auto">
+    <div class="relative min-h-screen py-20 px-4 md:px-10">
+      <button onclick="closeProjectModal('modal-15')"
+        class="fixed top-8 right-8 z-[110] text-white/50 hover:text-[#7600FF] transition-colors p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+        <iconify-icon icon="solar:close-circle-bold" width="32"></iconify-icon>
+      </button>
 
-    <div class="max-w-6xl mx-auto space-y-16">
-      <div class="text-center animate-modal-up">
-        <span
-          class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Insurance</span>
-        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Himaya</h1>
-        <p class="text-white/60 max-w-2xl mx-auto text-lg">Independent insurance broker in Oman.</p>
-      </div>
-
-      <div
-        class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
-        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/aimg2.png"
-          onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img2.png'"
-          class="w-full h-full object-cover">
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
-          <p class="text-white/80">Insurance</p>
+      <div class="max-w-6xl mx-auto space-y-16">
+        <div class="text-center animate-modal-up">
+          <span
+            class="inline-block px-4 py-1 rounded-full border border-white/20 text-[#7600FF] text-xs font-bold uppercase tracking-widest mb-6">Insurance</span>
+          <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Himaya</h1>
+          <p class="text-white/60 max-w-2xl mx-auto text-lg">Independent insurance broker in Oman.</p>
         </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
-          <p class="text-white/80">Oman</p>
-        </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Service</h4>
-          <p class="text-white/80">Branding</p>
-        </div>
-        <div>
-          <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
-          <p class="text-white/80">320+</p>
-        </div>
-      </div>
 
-      <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
-        <div class="space-y-6">
-          <h3 class="text-2xl font-bold text-white">The Challenge</h3>
-          <p class="text-white/60 leading-relaxed text-lg">
-            Insurance in Oman is often viewed as complicated, transactional, and filled with jargon. Himaya needed to
-            stand apart by offering simplicity and trust, while still projecting premium credibility. The challenge was
-            to balance professionalism with empathy, and modern innovation with cultural grounding.
-          </p>
+        <div
+          class="rounded-3xl overflow-hidden border border-white/10 bg-[#141414] aspect-video relative animate-modal-up shadow-2xl shadow-[#7600FF]/10">
+          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/aimg2.png"
+            onerror="this.src='https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img2.png'"
+            class="w-full h-full object-cover">
         </div>
-        <div class="space-y-6">
-          <h3 class="text-2xl font-bold text-white">Our Solution</h3>
-          <p class="text-white/60 leading-relaxed text-lg">
-            The identity centered on a logo inspired by bridges and arches, symbolizing clarity and protection. A calm
-            palette of navy, teal, seafoam green, and peach beige conveyed trust and modernity. Clear, empathetic
-            messaging and structured visuals reinforced simplicity.
-          </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 animate-modal-up">
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Industry</h4>
+            <p class="text-white/80">Insurance</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Location</h4>
+            <p class="text-white/80">Oman</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Service</h4>
+            <p class="text-white/80">Branding</p>
+          </div>
+          <div>
+            <h4 class="text-[#7600FF] text-xs font-bold uppercase mb-2">Hours</h4>
+            <p class="text-white/80">320+</p>
+          </div>
         </div>
-      </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box1.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box2.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box3.png"
-            class="w-full h-full object-cover"></div>
-        <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
-            src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box4.png"
-            class="w-full h-full object-cover"></div>
-      </div>
+        <div class="grid md:grid-cols-2 gap-12 animate-modal-up">
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white">The Challenge</h3>
+            <p class="text-white/60 leading-relaxed text-lg">
+              Insurance in Oman is often viewed as complicated, transactional, and filled with jargon. Himaya needed to
+              stand apart by offering simplicity and trust, while still projecting premium credibility. The challenge
+              was
+              to balance professionalism with empathy, and modern innovation with cultural grounding.
+            </p>
+          </div>
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white">Our Solution</h3>
+            <p class="text-white/60 leading-relaxed text-lg">
+              The identity centered on a logo inspired by bridges and arches, symbolizing clarity and protection. A calm
+              palette of navy, teal, seafoam green, and peach beige conveyed trust and modernity. Clear, empathetic
+              messaging and structured visuals reinforced simplicity.
+            </p>
+          </div>
+        </div>
 
-      <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
-        <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img1.png"
-          class="w-full h-full object-cover">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-modal-up">
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box1.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box2.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box3.png"
+              class="w-full h-full object-cover"></div>
+          <div class="rounded-xl overflow-hidden aspect-square border border-white/10"><img
+              src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/box4.png"
+              class="w-full h-full object-cover"></div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-white/10 animate-modal-up">
+          <img src="https://scarletroyal.ae/old_theme/theme_three/assets/img/works/15/img1.png"
+            class="w-full h-full object-cover">
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // Project Modal Logic
-  window.openProjectModal = function (id) {
-    const modal = document.getElementById(id);
-    if (!modal) {
-      console.error(`Modal with ID ${id} not found`);
-      return;
-    }
-    document.body.style.overflow = 'hidden'; // Lock Body Scroll
-    modal.classList.remove('hidden');
+  <script>
+    // Project Modal Logic
+    window.openProjectModal = function (id) {
+      const modal = document.getElementById(id);
+      if (!modal) {
+        console.error(`Modal with ID ${id} not found`);
+        return;
+      }
+      document.body.style.overflow = 'hidden'; // Lock Body Scroll
+      modal.classList.remove('hidden');
 
-    // Animate In specific elements
-    if (typeof gsap !== 'undefined') {
-      const elements = modal.querySelectorAll('.animate-modal-up');
-      gsap.fromTo(elements,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
-      );
-    } else {
-      console.warn('GSAP not loaded');
-    }
-  };
+      // Animate In specific elements
+      if (typeof gsap !== 'undefined') {
+        const elements = modal.querySelectorAll('.animate-modal-up');
+        gsap.fromTo(elements,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
+        );
+      } else {
+        console.warn('GSAP not loaded');
+      }
+    };
 
-  window.closeProjectModal = function (id) {
-    const modal = document.getElementById(id);
-    if (!modal) return;
+    window.closeProjectModal = function (id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
 
-    if (typeof gsap !== 'undefined') {
-      const elements = modal.querySelectorAll('.animate-modal-up');
-      gsap.to(elements, {
-        y: -20, opacity: 0, duration: 0.3, stagger: 0.05,
-        onComplete: () => {
-          modal.classList.add('hidden');
-          document.body.style.overflow = ''; // Unlock Body Scroll
+      if (typeof gsap !== 'undefined') {
+        const elements = modal.querySelectorAll('.animate-modal-up');
+        gsap.to(elements, {
+          y: -20, opacity: 0, duration: 0.3, stagger: 0.05,
+          onComplete: () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Unlock Body Scroll
+          }
+        });
+      } else {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    };
+  </script>
+  <script>
+    // Unified Mobile Menu Logic
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const header = document.getElementById('main-header');
+
+      if (!mobileMenu || !menuIcon) return;
+
+      const isHidden = mobileMenu.classList.contains('opacity-0');
+
+      if (isHidden) {
+        // Open Menu
+        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+        menuIcon.setAttribute('icon', 'solar:close-circle-bold');
+        document.body.style.overflow = 'hidden';
+        // Remove mix-blend-difference so header is fully clickable over menu
+        if (header) header.classList.remove('mix-blend-difference');
+      } else {
+        // Close Menu
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        menuIcon.setAttribute('icon', 'solar:hamburger-menu-linear');
+        document.body.style.overflow = '';
+        // Restore mix-blend-difference only if not scrolled
+        if (header && window.scrollY <= 50) {
+          header.classList.add('mix-blend-difference');
         }
-      });
-    } else {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
+      }
     }
-  };
-</script>
+
+    // Bind Button Click immediately (DOM is already available at this point)
+    (function () {
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      if (mobileBtn) {
+        mobileBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleMobileMenu();
+        });
+      } else {
+        // Fallback: try again after DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function () {
+          const btn = document.getElementById('mobile-menu-btn');
+          if (btn) {
+            btn.addEventListener('click', function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleMobileMenu();
+            });
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 
 </html>

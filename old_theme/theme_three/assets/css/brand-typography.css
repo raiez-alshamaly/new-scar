@@ -1,0 +1,242 @@
+/* ================================================================ */
+/*  SCARLET ROYAL — Brand Typography System                         */
+/*  STRICT RULES: No system fonts. No browser defaults. Ever.       */
+/* ================================================================ */
+
+
+/* ---------------------------------------------------------------- */
+/*  1. @FONT-FACE DECLARATIONS                                      */
+/*  Only referencing files that ACTUALLY EXIST on disk               */
+/* ---------------------------------------------------------------- */
+
+/*
+ * NEUE POWER ULTRA — Logo / Wordmark ONLY
+ * File: fonts/NeuePower/NeuePower-Ultra.ttf
+ */
+@font-face {
+    font-family: 'Neue Power Ultra';
+    src: url('../fonts/NeuePower/NeuePower-Ultra.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*
+ * GOTHAM — Headlines, Navigation, Buttons, UI
+ * File: fonts/Gotham/Gotham-Bold.otf
+ * We only have Bold weight — assign it to all weights so it always loads
+ */
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham/Gotham-Bold.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham/Gotham-Bold.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham/Gotham-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham/Gotham-Bold.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*
+ * MONTSERRAT — Body text, paragraphs, descriptions, captions
+ * Loaded from Google Fonts CDN (reliable, fast)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
+
+
+/* ---------------------------------------------------------------- */
+/*  2. GLOBAL RESET — Kill all system/browser default fonts         */
+/* ---------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+}
+
+html {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ---------------------------------------------------------------- */
+/*  3. MONTSERRAT — Body Text Elements                              */
+/*  Paragraphs, descriptions, captions, forms, small text           */
+/* ---------------------------------------------------------------- */
+
+p,
+span,
+li,
+td,
+th,
+dd,
+dt,
+blockquote,
+cite,
+figcaption,
+label,
+legend,
+small,
+sub,
+sup,
+mark,
+ins,
+del,
+em,
+strong,
+b,
+i,
+u,
+s,
+abbr,
+address,
+time {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+}
+
+/* Form elements — must be explicit, browsers override these */
+input,
+textarea,
+select,
+option {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+}
+
+
+/* ---------------------------------------------------------------- */
+/*  4. GOTHAM — Headline & UI Elements                              */
+/*  H1–H6, hero titles, section titles, navigation, buttons        */
+/* ---------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Gotham', 'Montserrat', sans-serif !important;
+}
+
+/* Navigation */
+nav,
+nav a,
+nav button,
+.nav-link,
+.mobile-nav-link {
+    font-family: 'Gotham', 'Montserrat', sans-serif !important;
+}
+
+/* Buttons */
+button,
+a.btn,
+.btn,
+[type="button"],
+[type="submit"],
+[type="reset"] {
+    font-family: 'Gotham', 'Montserrat', sans-serif !important;
+}
+
+/* Section titles, hero titles */
+.section-title,
+.hero-title,
+.anim-about-title,
+.anim-contact-heading,
+.reveal-text,
+.perspective-text,
+.font-outline {
+    font-family: 'Gotham', 'Montserrat', sans-serif !important;
+}
+
+/* Loader text */
+.loader-new,
+.loader-title,
+.loader-subtitle,
+.loader-counter,
+.loader-container {
+    font-family: 'Gotham', 'Montserrat', sans-serif !important;
+}
+
+
+/* ---------------------------------------------------------------- */
+/*  5. NEUE POWER ULTRA — Logo Wordmark ONLY                        */
+/*  Only the "SCARLET ROYAL" text uses this font                    */
+/* ---------------------------------------------------------------- */
+
+.logo-text,
+.brand-wordmark,
+a[href="index.html"].font-bold.text-xl,
+a[href="#"].font-bold.text-xl,
+header>div>a:first-child {
+    font-family: 'Neue Power Ultra', 'Gotham', 'Montserrat', sans-serif !important;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+}
+
+
+/* ---------------------------------------------------------------- */
+/*  6. OVERRIDE TAILWIND & BOOTSTRAP DEFAULTS                       */
+/* ---------------------------------------------------------------- */
+
+.font-sans {
+    font-family: 'Montserrat', 'Gotham', sans-serif !important;
+}
+
+:root {
+    --bs-font-sans-serif: 'Montserrat', 'Gotham', sans-serif !important;
+    --bs-body-font-family: 'Montserrat', 'Gotham', sans-serif !important;
+}
+
+
+/* ---------------------------------------------------------------- */
+/*  7. ICON FONTS — Must NOT be overridden                          */
+/* ---------------------------------------------------------------- */
+
+iconify-icon,
+.iconify,
+[class^="ph-"],
+[class*=" ph-"],
+[class^="fa-"],
+[class*=" fa-"],
+.fa,
+.fas,
+.far,
+.fab,
+.fal,
+.fad {
+    font-family: inherit !important;
+}

@@ -22,8 +22,8 @@
     <!-- Custom Loader CSS -->
     <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/loaders/loader.css">
 
-
-
+    <!-- BRAND TYPOGRAPHY -->
+    <link rel="stylesheet" type="text/css" href="old_theme/theme_three/assets/css/brand-typography.css">
 
     <style>
         :root {
@@ -60,9 +60,7 @@
         body {
             background-color: var(--color-dark);
             color: #ffffff;
-            font-family: system-ui,
-                -apple-system,
-                sans-serif;
+            font-family: 'Montserrat', 'Gotham', sans-serif;
             overflow-x: hidden;
 
             /* Disable Text Selection & Dragging */
@@ -148,12 +146,14 @@
 
     <!-- ==================== HEADER ==================== -->
     <header
-        class="fixed top-0 left-0 w-full z-[100] px-6 py-6 mix-blend-difference text-white transition-opacity duration-700"
+        class="fixed top-0 left-0 w-full z-[110] px-6 py-6 mix-blend-difference text-white transition-opacity duration-700"
         id="main-header">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="index.html"
-                class="font-bold text-xl tracking-tighter hover:text-[#7600FF] transition-colors">SCARLET ROYAL</a>
+                class="font-bold text-xl tracking-tighter hover:text-[#7600FF] transition-colors relative z-[110]">SCARLET
+                ROYAL</a>
 
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex gap-8 text-sm font-medium tracking-widest uppercase">
                 <a href="index.html#about"
                     class="nav-link relative hover:text-[#7600FF] transition-colors group">About</a>
@@ -168,12 +168,50 @@
                     class="nav-link relative hover:text-[#7600FF] transition-colors group">Contact</a>
             </nav>
 
+            <!-- Desktop CTA -->
             <a href="index.html#contact"
-                class="border border-white/20 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                class="hidden md:inline-block border border-white/20 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                Let's Talk
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white z-[110] relative focus:outline-none">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="32" id="menu-icon"></iconify-icon>
+            </button>
+        </div>
+
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-[#141414] z-[105] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+        <nav class="flex flex-col gap-8 text-center">
+            <a href="index.html#about"
+                class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+                onclick="toggleMobileMenu()">About</a>
+            <a href="index.html#services"
+                class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+                onclick="toggleMobileMenu()">Services</a>
+            <a href="index.html#portfolio"
+                class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+                onclick="toggleMobileMenu()">Work</a>
+            <a href="scarlets.html"
+                class="mobile-nav-link text-3xl font-bold tracking-tighter text-[#7600FF] transition-colors">Scarlets</a>
+            <a href="index.html#team"
+                class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+                onclick="toggleMobileMenu()">Team</a>
+            <a href="index.html#contact"
+                class="mobile-nav-link text-3xl font-bold tracking-tighter hover:text-[#7600FF] transition-colors"
+                onclick="toggleMobileMenu()">Contact</a>
+        </nav>
+
+        <div class="mt-12">
+            <a href="index.html#contact" onclick="toggleMobileMenu()"
+                class="border border-white/20 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
                 Let's Talk
             </a>
         </div>
-    </header>
+    </div>
 
     <!-- ==================== HERO SECTION ==================== -->
     <section class="relative pt-48 pb-32 px-6 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
@@ -192,7 +230,7 @@
                 <span class="text-xs font-bold uppercase tracking-widest text-white/80">Beta Access Live</span>
             </div>
 
-            <h1 class="text-6xl md:text-9xl font-bold tracking-tighter mb-8 section-title leading-tight">
+            <h1 class="text-5xl md:text-9xl font-bold tracking-tighter mb-8 section-title leading-tight">
                 Scarlets <span class="text-gradient">Tools</span>
             </h1>
 

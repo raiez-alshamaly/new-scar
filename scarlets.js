@@ -643,3 +643,55 @@ function copyText(elementId) {
         console.log('Copied!');
     });
 }
+
+// --------------------------------------------- //
+// Mobile Menu Logic
+// --------------------------------------------- //
+
+(function () {
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+    } else {
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.getElementById('mobile-menu-btn');
+            if (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleMobileMenu();
+                });
+            }
+        });
+    }
+})();
+
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const header = document.getElementById('main-header');
+
+    if (!mobileMenu || !menuIcon) return;
+
+    const isHidden = mobileMenu.classList.contains('opacity-0');
+    if (isHidden) {
+        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+        menuIcon.setAttribute('icon', 'solar:close-circle-bold');
+        document.body.style.overflow = 'hidden';
+        // Remove mix-blend-difference so header stays clickable over menu overlay
+        if (header) header.classList.remove('mix-blend-difference');
+    } else {
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        menuIcon.setAttribute('icon', 'solar:hamburger-menu-linear');
+        document.body.style.overflow = '';
+        // Restore mix-blend-difference only when not scrolled
+        if (header && window.scrollY <= 50) {
+            header.classList.add('mix-blend-difference');
+        }
+    }
+}
+
