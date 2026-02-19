@@ -115,6 +115,24 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* 3D Flip Animation Utilities */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 
@@ -346,41 +364,37 @@
                     </div>
                 </div>
 
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== COMING SOON SECTION ==================== -->
-    <section class="py-24 px-6 bg-black border-t border-white/5 relative overflow-hidden">
-        <!-- Decoration -->
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#7600FF] opacity-5 filter blur-[100px] pointer-events-none">
-        </div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="flex items-end justify-between mb-16 px-2">
-                <div>
-                    <span class="block text-white/30 font-bold tracking-widest uppercase text-xs mb-2">Roadmap</span>
-                    <h2 class="text-3xl md:text-5xl font-bold section-title text-white/50">Coming Soon</h2>
-                </div>
-            </div>
-
-            <div
-                class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 opacity-60 hover:opacity-100 transition-opacity duration-500">
-                <!-- Multi-Ai agent SEO domain audit -->
-                <div
-                    class="tool-card coming-soon border border-white/5 bg-white/[0.02] p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors">
-                    <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 text-white/20">
-                        <iconify-icon icon="solar:shield-warning-bold-duotone" width="24"></iconify-icon>
+                <!-- Tool 4: AI SEO Strategy Agent -->
+                <div class="tool-card group bg-[#111] hover:bg-[#161616] border border-white/5 hover:border-[#7600FF]/50 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+                    onclick="openModal('seo-strategy')">
+                    <div
+                        class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <iconify-icon icon="solar:arrow-right-up-linear"
+                            class="text-white rotate-45 group-hover:rotate-0 transition-transform duration-500"
+                            width="24"></iconify-icon>
                     </div>
-                    <h3 class="text-lg font-bold mb-2 text-white/50">Multi-Ai Agent SEO Domain Audit</h3>
-                    <p class="text-xs text-white/30">Advanced domain auditing powered by autonomous multi-agent AI
-                        systems.</p>
+
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#000] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                        <iconify-icon icon="solar:shield-warning-bold-duotone" width="32"
+                            class="text-white group-hover:text-[#7600FF] transition-colors duration-500"></iconify-icon>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-3 text-white">AI SEO Strategy Agent</h3>
+                    <p class="text-white/40 text-sm leading-relaxed mb-8">Enter a domain to generate a comprehensive SEO
+                        strategy report powered by multi-agent AI.</p>
+
+                    <div
+                        class="flex items-center gap-2 text-xs font-bold text-white/30 uppercase tracking-widest group-hover:text-[#7600FF] transition-colors border-t border-white/5 pt-6">
+                        <span>Launch App</span>
+                    </div>
                 </div>
+
             </div>
-        </div>
     </section>
+
+
+
 
     <!-- ==================== MODALS CONTAINER ==================== -->
     <div id="modal-container" class="fixed inset-0 z-[200] hidden flex items-center justify-center px-4">
@@ -882,6 +896,205 @@
                     <button onclick="cancelOperation('idea')"
                         class="px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold transition-colors flex items-center gap-2">
                         <iconify-icon icon="solar:close-circle-bold"></iconify-icon> Cancel Generation
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI SEO Strategy Agent Modal -->
+        <div id="modal-seo-strategy"
+            class="modal-content hidden relative bg-[#111] border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl shadow-[#7600FF]/20">
+            <!-- Header -->
+            <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#161616]">
+                <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                    <iconify-icon icon="solar:shield-warning-bold-duotone" class="text-[#7600FF]"></iconify-icon>
+                    AI SEO Strategy Agent
+                </h3>
+                <button onclick="closeModal()" class="text-white/60 hover:text-white transition-colors">
+                    <iconify-icon icon="solar:close-circle-bold" width="24"></iconify-icon>
+                </button>
+            </div>
+
+            <div class="relative flex-1 overflow-hidden min-h-[400px] flex flex-col">
+                <div id="seo-strategy-content"
+                    class="p-4 md:p-6 flex-1 overflow-y-auto custom-scrollbar bg-[#0a0a0a] relative perspective-1000 overflow-x-hidden">
+
+                    <!-- FLIP CONTAINER FOR STEP 1 & 2 -->
+                    <div id="seo-strategy-flip-container"
+                        class="relative w-full transition-all duration-700 transform-style-3d">
+
+                        <!-- FRONT: Email Input -->
+                        <div id="seo-strategy-front" class="w-full backface-hidden bg-[#0a0a0a]">
+                            <div class="text-center mb-8 pt-4">
+                                <h4 class="text-2xl font-bold text-white mb-2">AI SEO Strategy Agent</h4>
+                                <p class="text-white/50 text-sm">Enter your email to verify access.</p>
+                            </div>
+                            <div class="space-y-2 mb-8 max-w-md mx-auto">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Email <span
+                                        class="text-red-400">*</span></label>
+                                <input type="email" id="seo-strategy-email" placeholder="youremail@gmail.com"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                                <p id="seo-strategy-email-status" class="text-xs mt-2 hidden font-bold"></p>
+                            </div>
+                            <div class="max-w-md mx-auto">
+                                <button onclick="runSeoEmailCheck()" id="seo-strategy-email-btn"
+                                    class="w-full bg-[#7600FF] hover:bg-[#6000d0] text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(118,0,255,0.3)] hover:shadow-[0_0_30px_rgba(118,0,255,0.5)] flex justify-center items-center gap-2">
+                                    <span>Verify Email</span>
+                                    <iconify-icon icon="solar:arrow-right-linear" width="20"></iconify-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- BACK: Code Input -->
+                        <div id="seo-strategy-back"
+                            class="w-full absolute top-0 left-0 backface-hidden rotate-y-180 bg-[#0a0a0a]">
+                            <div class="text-center mb-8 pt-4">
+                                <h4 class="text-2xl font-bold text-white mb-2">Verification Code</h4>
+                                <p class="text-white/50 text-sm">We've sent a code to your email.</p>
+                            </div>
+                            <div class="space-y-2 mb-8 max-w-md mx-auto">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Code <span
+                                        class="text-red-400">*</span></label>
+                                <input type="text" id="seo-strategy-code" placeholder="123456"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors text-center text-2xl tracking-widest font-mono">
+                                <p id="seo-strategy-code-status" class="text-xs mt-2 hidden font-bold"></p>
+                            </div>
+                            <div class="max-w-md mx-auto flex gap-4">
+                                <button onclick="flipBackToEmail()"
+                                    class="w-1/3 bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-xl transition-all flex justify-center items-center">
+                                    <iconify-icon icon="solar:arrow-left-linear" width="24"></iconify-icon>
+                                </button>
+                                <button onclick="runSeoCodeCheck()" id="seo-strategy-code-btn"
+                                    class="w-2/3 bg-[#7600FF] hover:bg-[#6000d0] text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(118,0,255,0.3)] hover:shadow-[0_0_30px_rgba(118,0,255,0.5)] flex justify-center items-center gap-2">
+                                    <span>Verify Code</span>
+                                    <iconify-icon icon="solar:check-circle-bold" width="20"></iconify-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: MAIN FORM (Hidden initially) -->
+                    <div id="seo-strategy-form" class="hidden animate-in fade-in slide-in-from-right-8 duration-500">
+                        <div class="text-center mb-8 pt-2">
+                            <h4 class="text-2xl font-bold text-white mb-2">Strategy Details</h4>
+                            <p class="text-white/50 text-sm">Tell us about your business.</p>
+                        </div>
+
+                        <div class="space-y-5 mb-8">
+                            <!-- Domain -->
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Domain <span
+                                        class="text-red-400">*</span></label>
+                                <input type="text" id="seo-strategy-domain" placeholder="example.com"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                                <p id="seo-strategy-domain-error" class="text-red-400 text-xs hidden">This field is
+                                    required</p>
+                            </div>
+
+                            <!-- Business Description -->
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Business
+                                    Description</label>
+                                <textarea id="seo-strategy-bdes" rows="3"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors resize-none"
+                                    placeholder="Brief description of what the company does"></textarea>
+                            </div>
+
+                            <!-- Target Market -->
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Target Market
+                                    <span class="text-red-400">*</span></label>
+                                <select id="seo-strategy-market"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors appearance-none">
+                                    <option value="" disabled selected>Select an option ...</option>
+                                    <option value="us">us</option>
+                                    <option value="uk">uk</option>
+                                    <option value="de">de</option>
+                                    <option value="fr">fr</option>
+                                    <option value="es">es</option>
+                                    <option value="it">it</option>
+                                    <option value="au">au</option>
+                                    <option value="ca">ca</option>
+                                    <option value="ae">ae</option>
+                                    <option value="sa">sa</option>
+                                    <option value="in">in</option>
+                                    <option value="br">br</option>
+                                    <option value="jp">jp</option>
+                                    <option value="kr">kr</option>
+                                    <option value="sg">sg</option>
+                                    <option value="za">za</option>
+                                    <option value="ng">ng</option>
+                                    <option value="eg">eg</option>
+                                    <option value="mx">mx</option>
+                                    <option value="ar">ar</option>
+                                </select>
+                                <p id="seo-strategy-market-error" class="text-red-400 text-xs hidden">This field is
+                                    required</p>
+                            </div>
+
+                            <!-- Competitors -->
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-white/50 uppercase tracking-widest">Main
+                                    Competitors (comma-separated)</label>
+                                <input type="text" id="seo-strategy-competitors"
+                                    placeholder="competitor1.com, competitor2.com"
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7600FF] transition-colors">
+                            </div>
+                        </div>
+
+                        <button onclick="runSeoStrategy()" id="seo-strategy-btn"
+                            class="w-full bg-[#7600FF] hover:bg-[#6000d0] text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(118,0,255,0.3)] hover:shadow-[0_0_30px_rgba(118,0,255,0.5)] flex justify-center items-center gap-2">
+                            <span>Submit Strategy</span>
+                            <iconify-icon icon="solar:rocket-bold-duotone" width="20"></iconify-icon>
+                        </button>
+                    </div>
+
+                    <!-- Success State -->
+                    <div id="seo-strategy-success"
+                        class="hidden text-center py-16 animate-in fade-in zoom-in duration-500">
+                        <div
+                            class="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center mx-auto mb-6">
+                            <iconify-icon icon="solar:check-circle-bold-duotone" width="48"
+                                class="text-green-400"></iconify-icon>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Request Submitted!</h4>
+                        <p id="seo-strategy-success-text" class="text-white/50 text-sm max-w-md mx-auto mb-8">
+                            Ahh! we are working now! please check your email after 20 min!
+                        </p>
+                        <button onclick="closeModal()"
+                            class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-6 py-3 rounded-xl font-bold hover:bg-white/20 transition-colors">
+                            <span>Close</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Loading Overlay -->
+                <div id="seo-strategy-loading"
+                    class="absolute inset-0 bg-[#0a0a0a] z-50 hidden flex flex-col items-center justify-center p-8 text-center bg-opacity-95 backdrop-blur-sm">
+                    <div class="loader-logo-wrapper mb-6 animate-pulse">
+                        <svg viewBox="0 0 203 169"
+                            class="w-16 h-16 md:w-24 md:h-24 mx-auto drop-shadow-[0_0_15px_rgba(118,0,255,0.5)]">
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M6.3 41L38.67 8.63V42.56L0 81.24V56.22C0 50.51 2.27 45.04 6.3 41Z"></path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M163.83 119.91L202.5 81.24V105.79C202.5 111.79 200.12 117.55 195.88 121.79L163.83 153.84V137.07L132.1 168.8H70.4099L38.6799 137.07V82.16L101.25 144.74L163.83 82.16V119.91Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M0 108.43V81.24L38.67 119.91V153.84L4.76 119.93C1.71 116.88 0 112.74 0 108.43Z">
+                            </path>
+                            <path class="loader-path" style="fill: #7600FF; opacity: 0.8;"
+                                d="M202.5 56.22V81.24L163.83 42.56V79.98L101.25 17.4L38.6799 79.98V25.07L63.7499 0H138.76L163.83 25.07V8.63L196.2 41C200.24 45.04 202.5 50.51 202.5 56.22Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Submitting Request...</h4>
+                    <p class="text-white/50 text-sm max-w-md mb-8">AI agents are being dispatched. Please wait <span
+                            class="text-[#7600FF]">a moment</span>.</p>
+
+                    <button onclick="cancelOperation('seo-strategy')"
+                        class="px-6 py-3 border border-red-500/50 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold transition-colors flex items-center gap-2">
+                        <iconify-icon icon="solar:close-circle-bold"></iconify-icon> Cancel
                     </button>
                 </div>
             </div>

@@ -137,6 +137,42 @@ function openModal(modalId) {
         targetModal.classList.remove("hidden");
         document.body.style.overflow = "hidden"; // Prevent background scrolling
 
+        // Reset SEO Strategy modal to step 1 on every open
+        if (modalId === 'seo-strategy') {
+            const flipContainer = document.getElementById('seo-strategy-flip-container');
+            const mainForm = document.getElementById('seo-strategy-form');
+            const success = document.getElementById('seo-strategy-success');
+
+            // Reset to Front
+            if (flipContainer) {
+                flipContainer.classList.remove('hidden', 'rotate-y-180');
+                gsap.set(flipContainer, { opacity: 1, scale: 1, rotationY: 0 });
+            }
+            if (mainForm) mainForm.classList.add('hidden');
+            if (success) success.classList.add('hidden');
+
+            // Reset form fields and statues
+            document.querySelectorAll('#seo-strategy-email-status, #seo-strategy-code-status').forEach(el => el.classList.add('hidden'));
+            const emailInput = document.getElementById('seo-strategy-email');
+            if (emailInput) { emailInput.value = ''; emailInput.classList.remove('border-red-400'); }
+            const codeInput = document.getElementById('seo-strategy-code');
+            if (codeInput) { codeInput.value = ''; codeInput.classList.remove('border-red-400'); }
+
+            // Validate other fields reset
+            const domainInput = document.getElementById('seo-strategy-domain');
+            if (domainInput) domainInput.value = '';
+            const bdesInput = document.getElementById('seo-strategy-bdes');
+            if (bdesInput) bdesInput.value = '';
+            const marketInput = document.getElementById('seo-strategy-market');
+            if (marketInput) marketInput.selectedIndex = 0;
+            const compInput = document.getElementById('seo-strategy-competitors');
+            if (compInput) compInput.value = '';
+
+            // Hide loading
+            const loading = document.getElementById('seo-strategy-loading');
+            if (loading) loading.classList.add('hidden');
+        }
+
         // GSAP Animation for entrance
         gsap.fromTo(targetModal,
             { scale: 0.9, opacity: 0 },
@@ -164,6 +200,7 @@ document.addEventListener("keydown", (e) => {
 let mapsController = null;
 let seoController = null;
 let ideaController = null;
+let seoStrategyController = null;
 
 function cancelOperation(type) {
     if (type === 'maps' && mapsController) {
@@ -187,9 +224,334 @@ function cancelOperation(type) {
         document.getElementById("idea-btn").disabled = false;
         console.log('Idea operation cancelled by user');
     }
+    if (type === 'seo-strategy' && seoStrategyController) {
+        seoStrategyController.abort();
+        seoStrategyController = null;
+        document.getElementById("seo-strategy-loading").classList.add("hidden");
+        document.getElementById("seo-strategy-btn").disabled = false;
+        console.log('SEO Strategy operation cancelled by user');
+    }
 }
 
 
+// --------------------------------------------- //
+// AI SEO Strategy Agent Logic
+// --------------------------------------------- //
+
+// Flip Animation Helpers (GSAP)
+function flipToCode() {
+    console.log("Flipping to code...");
+    gsap.to('#seo-strategy-flip-container', { rotationY: 180, duration: 0.6, ease: "power2.inOut" });
+}
+
+function flipBackToEmail() {
+    console.log("Flipping back to email...");
+    gsap.to('#seo-strategy-flip-container', { rotationY: 0, duration: 0.6, ease: "power2.inOut" });
+}
+
+function showMainForm() {
+    const flipContainer = document.getElementById('seo-strategy-flip-container');
+    const mainForm = document.getElementById('seo-strategy-form');
+
+    // Hide Flip Container
+    gsap.to(flipContainer, {
+        opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
+            flipContainer.classList.add('hidden');
+            // Show Main Form
+            mainForm.classList.remove('hidden');
+            gsap.fromTo(mainForm, { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.5 });
+        }
+    });
+}
+
+// STEP 1: Email Check
+async function runSeoEmailCheck() {
+    const emailInput = document.getElementById('seo-strategy-email');
+    const email = emailInput.value.trim();
+    const btn = document.getElementById('seo-strategy-email-btn');
+    const statusText = document.getElementById('seo-strategy-email-status');
+
+    // Reset status
+    statusText.classList.add('hidden');
+    statusText.className = "text-xs mt-2 hidden font-bold";
+    emailInput.classList.remove('border-red-400', 'border-green-400');
+
+    // Simple Regex
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailInput.classList.add('border-red-400');
+        statusText.textContent = "Please enter a valid email.";
+        statusText.classList.remove('hidden');
+        statusText.classList.add('text-red-400');
+        return;
+    }
+
+    // Loading
+    btn.disabled = true;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<iconify-icon icon="solar:spinner-linear" class="animate-spin" width="24"></iconify-icon>`;
+
+    // Reset Controller
+    if (seoStrategyController) seoStrategyController.abort();
+    seoStrategyController = new AbortController();
+
+    try {
+        const response = await fetch("https://prebronchial-rhythmlessly-regina.ngrok-free.dev/webhook/SERankScarEmail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email }),
+            signal: seoStrategyController.signal
+        });
+
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        let data = await response.json();
+        // Handle n8n array wrapping
+        if (Array.isArray(data) && data.length > 0) data = data[0];
+
+        const text = data.text || "";
+
+        console.log("Email Check Response:", text);
+
+        if (text.includes("your email is not Verifaied yet") || text.includes("Verifaction code is sent")) {
+            // Case 1: First time verify or unverified -> Flip
+            flipToCode();
+        } else if (text.includes("your code has been sent please check your e-mail")) {
+            // Case 3: Code Resent -> Flip First, then Show Status on Back
+            flipToCode();
+
+            // Set message on the Code Input screen
+            const codeStatus = document.getElementById('seo-strategy-code-status');
+            if (codeStatus) {
+                codeStatus.textContent = "Verification code sent again. Please check your email and spam folder.";
+                codeStatus.classList.remove('hidden');
+                codeStatus.classList.add('text-yellow-400');
+            }
+        } else if (text.includes("your email is Verified before")) {
+            // Case 4: Already Verified -> Go directly to form
+            localStorage.setItem("seo_verified_email", email);
+            showMainForm();
+        } else {
+            // Case 2 or default: Show text
+            statusText.textContent = text;
+            statusText.classList.remove('hidden');
+
+            if (text.toLowerCase().includes("sorry") || text.toLowerCase().includes("error")) {
+                statusText.classList.add('text-red-400');
+                if (text.toLowerCase().includes("sorry")) emailInput.classList.add('border-red-400');
+            } else {
+                statusText.classList.add('text-yellow-400');
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+        statusText.textContent = "Error checking email. Please try again.";
+        statusText.classList.remove('hidden');
+        statusText.classList.add('text-red-400');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        seoStrategyController = null;
+    }
+}
+
+// STEP 2: Code Check
+async function runSeoCodeCheck() {
+    const email = document.getElementById('seo-strategy-email').value.trim();
+    const codeInput = document.getElementById('seo-strategy-code');
+    const code = codeInput.value.trim();
+    const btn = document.getElementById('seo-strategy-code-btn');
+    const statusText = document.getElementById('seo-strategy-code-status');
+
+    // Reset status
+    statusText.classList.add('hidden');
+    statusText.className = "text-xs mt-2 hidden font-bold";
+    codeInput.classList.remove('border-red-400');
+
+    if (!code) {
+        codeInput.classList.add('border-red-400');
+        return;
+    }
+
+    // Loading
+    btn.disabled = true;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<iconify-icon icon="solar:spinner-linear" class="animate-spin" width="24"></iconify-icon>`;
+
+    if (seoStrategyController) seoStrategyController.abort();
+    seoStrategyController = new AbortController();
+
+    try {
+        const response = await fetch("https://prebronchial-rhythmlessly-regina.ngrok-free.dev/webhook/SERankScarEmail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email, code: String(code) }),
+            signal: seoStrategyController.signal
+        });
+
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        let data = await response.json();
+        if (Array.isArray(data) && data.length > 0) data = data[0];
+
+        const text = data.text || "";
+        console.log("Code Check Response:", text);
+
+        if (text.includes("email is Verifaied!")) {
+            // Case 3: Verified -> Form
+            localStorage.setItem("seo_verified_email", email);
+            showMainForm();
+        } else {
+            // Case 1 & 2: Show output text directly
+            statusText.textContent = text;
+            statusText.classList.remove('hidden');
+
+            if (text.includes("not correct")) {
+                statusText.classList.add('text-red-400');
+                codeInput.classList.add('border-red-400');
+            } else {
+                statusText.classList.add('text-white');
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+        statusText.textContent = "Error verifying code.";
+        statusText.classList.remove('hidden');
+        statusText.classList.add('text-red-400');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        seoStrategyController = null;
+    }
+}
+
+// STEP 3: Submit Strategy
+async function runSeoStrategy() {
+    const email = document.getElementById('seo-strategy-email').value.trim() || localStorage.getItem("seo_verified_email");
+    const domain = document.getElementById('seo-strategy-domain').value.trim();
+    const bdes = document.getElementById('seo-strategy-bdes').value.trim();
+    const market = document.getElementById('seo-strategy-market').value;
+    const competitorsRaw = document.getElementById('seo-strategy-competitors').value.trim();
+    const btn = document.getElementById('seo-strategy-btn');
+
+    // Reset errors
+    document.getElementById('seo-strategy-domain-error').classList.add('hidden');
+    document.getElementById('seo-strategy-market-error').classList.add('hidden');
+    document.getElementById('seo-strategy-domain').classList.remove('border-red-400');
+    document.getElementById('seo-strategy-market').classList.remove('border-red-400');
+
+    // Validate
+    let hasError = false;
+    if (!domain) {
+        document.getElementById('seo-strategy-domain-error').classList.remove('hidden');
+        document.getElementById('seo-strategy-domain').classList.add('border-red-400');
+        hasError = true;
+    }
+    if (!market) {
+        document.getElementById('seo-strategy-market-error').classList.remove('hidden');
+        document.getElementById('seo-strategy-market').classList.add('border-red-400');
+        hasError = true;
+    }
+    if (hasError) return;
+
+    // Parse competitors
+    const competitors = competitorsRaw.split(',').map(c => c.trim()).filter(c => c);
+    const com1 = competitors[0] || '';
+    const com2 = competitors[1] || '';
+    const com3 = competitors[2] || '';
+
+    // Build request body
+    const body = {
+        email: email,
+        domain: domain,
+        Bdes: bdes,
+        "target Market": market,
+        com1: com1,
+        com2: com2,
+        com3: com3
+    };
+
+    // Reset Controller
+    if (seoStrategyController) seoStrategyController.abort();
+    seoStrategyController = new AbortController();
+
+    // Loading State
+    document.getElementById('seo-strategy-loading').classList.remove('hidden');
+    btn.disabled = true;
+
+    try {
+        const response = await fetch("https://prebronchial-rhythmlessly-regina.ngrok-free.dev/webhook/SCarE", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+            signal: seoStrategyController.signal
+        });
+
+        if (!response.ok) throw new Error("Failed to submit request");
+
+        let data = await response.json();
+        if (Array.isArray(data) && data.length > 0) data = data[0];
+
+        // Determine state based on text
+        const successText = data.text || "";
+        const successModal = document.getElementById('seo-strategy-success');
+        const successModalText = document.getElementById('seo-strategy-success-text');
+
+        // Find icon container and icon
+        const iconContainer = successModal.querySelector('div.w-20');
+        const successIcon = successModal.querySelector('iconify-icon');
+        const successTitle = successModal.querySelector('h4');
+
+        // Reset styling (Default Success)
+        if (iconContainer) {
+            iconContainer.className = "w-20 h-20 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center mx-auto mb-6";
+        }
+        if (successIcon) {
+            successIcon.setAttribute('icon', 'solar:check-circle-bold-duotone');
+            successIcon.className = "text-green-400";
+        }
+        if (successTitle) successTitle.textContent = "Request Submitted!";
+        successModalText.className = "text-white/50 text-sm max-w-md mx-auto mb-8";
+
+        if (successText.includes("your email is not Verifaied yet")) {
+            // Error State
+            if (iconContainer) iconContainer.className = "w-20 h-20 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-6";
+            if (successIcon) {
+                successIcon.setAttribute('icon', 'solar:shield-warning-bold-duotone');
+                successIcon.className = "text-red-400";
+            }
+            if (successTitle) successTitle.textContent = "Verification Failed";
+            successModalText.classList.add('text-red-400');
+        } else if (successText.includes("Sorry! you can use Multi-Ai agent")) {
+            // Warning/Limit State
+            if (iconContainer) iconContainer.className = "w-20 h-20 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center mx-auto mb-6";
+            if (successIcon) {
+                successIcon.setAttribute('icon', 'solar:info-circle-bold-duotone');
+                successIcon.className = "text-yellow-400";
+            }
+            if (successTitle) successTitle.textContent = "Notice";
+            successModalText.classList.add('text-yellow-400');
+        }
+
+        // Show success state
+        document.getElementById('seo-strategy-loading').classList.add('hidden');
+        document.getElementById('seo-strategy-form').classList.add('hidden');
+        successModal.classList.remove('hidden');
+
+        successModalText.textContent = successText || "Request submitted successfully!";
+
+        gsap.fromTo('#seo-strategy-success', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' });
+
+    } catch (error) {
+        console.error("SEO Strategy Error:", error);
+        alert("An error occurred. Please try again.");
+    } finally {
+        document.getElementById('seo-strategy-loading').classList.add('hidden');
+        btn.disabled = false;
+        seoStrategyController = null;
+    }
+}
 
 async function runMapsScraper() {
     const q = document.getElementById("maps-q").value;
